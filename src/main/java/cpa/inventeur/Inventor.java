@@ -6,25 +6,25 @@ package cpa.inventeur;
  */
 public class Inventor {
     private String name;
-    private boolean statut;
+    private boolean state;
     private static final boolean FREE = true;
     private static final boolean BUSY = false;
 
     Inventor(String name) {
         this.name = name;
-        statut = FREE;
+        state = FREE;
     }
 
     void setFree() {
-        this.statut = FREE;
+        this.state = FREE;
     }
 
     void setBusy() {
-        this.statut = BUSY;
+        this.state = BUSY;
     }
 
-    boolean getStatut() {
-        return statut;
+    boolean getState() {
+        return state;
     }
 
     @Override
