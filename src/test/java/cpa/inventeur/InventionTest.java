@@ -28,9 +28,9 @@ class InventionTest {
     @Test
     void testGetState() {
         Invention invention = new Invention("tester");
-        boolean with0inventor = invention.getState();
+        boolean with0inventor = invention.isFinished();
         invention.addInventor(inventor);
-        boolean with1inventor = invention.getState();
+        boolean with1inventor = invention.isFinished();
         assertEquals(INPROGRESS,with0inventor);
         assertEquals(FINISHED,with1inventor);
     }

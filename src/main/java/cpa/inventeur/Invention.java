@@ -29,7 +29,7 @@ public class Invention {
         return FAILED;
     }
 
-    boolean getState() {
+    boolean isFinished() {
         if (!inventors.isEmpty())
             state = FINISHED;
         return state;
