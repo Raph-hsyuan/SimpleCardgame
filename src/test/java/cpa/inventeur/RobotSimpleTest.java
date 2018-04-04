@@ -15,7 +15,7 @@ class RobotSimpleTest {
     @Test
     void testToPlay() {
         table.putInvention(invention1);
-        RobotSimple robot = new RobotSimple(table,inventor);
+        RobotSimple robot = new RobotSimple("TESTER1",table,inventor);
         robot.toPlay();
         assertTrue(table.getInvention().isFinished());
         System.setOut(new PrintStream(outContent));
