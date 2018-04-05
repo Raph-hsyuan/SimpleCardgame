@@ -1,18 +1,14 @@
 package cpa.inventeur;
 
-import java.util.logging.Logger;
-
 /**
  * @author HUANG Shenyuan
  * @date 2018-4-04
  */
 public class GameLauncher {
-    RobotSimple player1;
-    Table gameTable;
-    Inventor newton;
-    Invention car;
-    Logger log;
-
+    private RobotSimple player1;
+    private Table gameTable;
+    private Inventor newton;
+    private Invention car;
     GameLauncher() {
         car = new Invention("CAR");
         gameTable = Table.getInstance();

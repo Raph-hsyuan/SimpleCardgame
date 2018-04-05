@@ -2,11 +2,17 @@ package cpa.inventeur;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TableTest {
 
     Table table = Table.getInstance();
+    
+    @BeforeEach
+    void clear() {
+        table.removeAll();
+    }
     
     @Test
     void testGetInvention() {
