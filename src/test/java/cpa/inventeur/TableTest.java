@@ -18,7 +18,7 @@ class TableTest {
     void testGetInvention() {
         Invention invention1 = new Invention("invention1");
         table.putInvention(invention1);
-        assertEquals(invention1,table.getInvention());
+        assertEquals(invention1,table.getInventions().get(0));
         table.removeAll();
     }
     
@@ -26,10 +26,19 @@ class TableTest {
     void testPutInvention() {
         Invention invention1 = new Invention("invention1");
         Invention invention2 = new Invention("invention2");
+        Invention invention3 = new Invention("invention3");
+        Invention invention4 = new Invention("invention4");
         assertTrue(table.putInvention(invention1));
-        assertTrue(!table.putInvention(invention2));
-        assertEquals(1,table.inventions.size());
-        assertEquals(invention1,table.inventions.get(0));
+        assertTrue(table.putInvention(invention2));
+        assertTrue(table.putInvention(invention3));
+        assertTrue(table.putInvention(invention4));
+        assertTrue(!table.putInvention(invention4));
+        assertEquals(4,table.getInventions().size());
+        assertEquals(invention1,table.getInventions().get(0));
+        assertEquals(invention2,table.getInventions().get(1));
+        assertEquals(invention3,table.getInventions().get(2));
+        assertEquals(invention4,table.getInventions().get(3));
+
         table.removeAll();
     }
 

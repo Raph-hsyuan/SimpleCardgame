@@ -10,10 +10,10 @@ import java.util.List;
 public class Table {
     
     private static Table instance;
-    private static final int SIZEOFTABLE = 1;
+    private static final int SIZEOFTABLE = 4;
     private static final boolean SUCCESS = true;
     private static final boolean FAILED = false;
-    List<Invention> inventions;
+    private List<Invention> inventions;
     
 
     private Table() {
@@ -34,8 +34,8 @@ public class Table {
         return FAILED;
     }
     
-    Invention getInvention() {
-        return inventions.get(0);
+    List<Invention> getInventions() {
+        return inventions;
     }
     
     void removeAll() {
