@@ -1,23 +1,19 @@
 package cpa.inventeur;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Liu Jiaqi
  * @date 2018-4-02
  */
 public class RobotSimple {
     private Table table;
-    private List<Inventor> inventors;
+    private Inventor inventor;
     private int score;
     private String name;
 
-    RobotSimple(String name, Table table, List<Inventor> inventors) {
+    RobotSimple(String name, Table table, Inventor inventor) {
         score = 0;
         this.table = table;
-        this.inventors = new ArrayList<>();
-        this.inventors.addAll(inventors);
+        this.inventor = inventor;
         this.name = name;
     }
 
