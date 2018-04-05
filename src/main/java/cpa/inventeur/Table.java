@@ -42,4 +42,8 @@ public class Table {
         inventions.clear();
     }
     
+    boolean removeInvention(Invention invention) {
+        return this.inventions.remove(invention);
+    }
+    
 }
