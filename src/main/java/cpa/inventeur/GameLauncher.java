@@ -9,23 +9,20 @@ import java.util.List;
  */
 public class GameLauncher {
     private RobotSimple player1;
-    private Table gameTable;
-    private Inventor newton;
-    private Inventor edison;
-    private Invention car;
+    private Table gameTable = Table.getInstance();
+    private Inventor newton = new Inventor("Newton");
+    private Inventor edison = new Inventor("Edison");
+    private Invention car = new Invention("CAR");
     
     GameLauncher() {
-        car = new Invention("CAR");
-        gameTable = Table.getInstance();
-        newton = new Inventor("MY_INVENTOR");
         player1 = new RobotSimple("huang1", gameTable, toInventorList(newton,edison));
     }
 
     List<Inventor> toInventorList(Inventor inventor1, Inventor inventor2){
-        List<Inventor> inventions = new ArrayList<>();
-        inventions.add(inventor1);
-        inventions.add(inventor2);
-        return inventions;
+        List<Inventor> inventors = new ArrayList<>();
+        inventors.add(inventor1);
+        inventors.add(inventor2);
+        return inventors;
     }
     
     /**
@@ -35,9 +32,7 @@ public class GameLauncher {
         gameTable.putInvention(car);
         while (gameTable.getInventions().isEmpty()) {
             player1.toPlay();
-            for(Invention invention : gameTable.getInventions()) {
-                if(invention.isFinished()) gameTable.removeInvention(invention);
-            }
+            gameTable.removeFinished();
         }
         printFinish();
         printScore();

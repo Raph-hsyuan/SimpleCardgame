@@ -37,6 +37,7 @@ public class RobotSimple {
         return score;
     }
 
+    void 
     @Override
     public String toString() {
         return name;

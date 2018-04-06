@@ -23,7 +23,7 @@ public class Inventor {
         this.state = BUSY;
     }
 
-    boolean getState() {
+    boolean isFree() {
         return state;
     }
 

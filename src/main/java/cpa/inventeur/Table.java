@@ -46,4 +46,14 @@ public class Table {
         return this.inventions.remove(invention);
     }
     
+    void removeFinished() {
+        for(Invention find : inventions) {
+            if(find.isFinished())
+                inventions.remove(find);
+        }
+    }
+    
+    void printTable() {
+        
+    }
 }

@@ -11,21 +11,21 @@ class InventorTest {
     @Test
     void testGetState() {
         boolean expect = true;
-        assertEquals(expect, inventor.getState());
+        assertEquals(expect, inventor.isFree());
     }
 
     @Test
     void testSetBusy() {
         inventor.setBusy();
         boolean expect = false;
-        assertEquals(expect, inventor.getState());
+        assertEquals(expect, inventor.isFree());
     }
 
     @Test
     void testSetFree() {
         inventor.setFree();
         boolean expect = true;
-        assertEquals(expect, inventor.getState());
+        assertEquals(expect, inventor.isFree());
     }
 
 }
