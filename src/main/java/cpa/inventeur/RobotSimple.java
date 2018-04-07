@@ -1,6 +1,5 @@
 package cpa.inventeur;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,35 +8,34 @@ import java.util.List;
  */
 public class RobotSimple {
     private Table table;
-    private List<Inventor> inventors;
-    private int score;
     private String name;
+    private PlayerConsole console;
 
-    RobotSimple(String name, Table table, List<Inventor> inventors) {
-        score = 0;
-        this.table = table;
-        this.inventors = new ArrayList<>();
-        this.inventors.addAll(inventors);
+    RobotSimple(String name, PlayerConsole console) {
+        table = Table.getInstance();
+        this.console = console;
         this.name = name;
     }
 
     void toPlay() {
-        Invention invention = table.getInvention();
-        if (!invention.isFinished() && inventor.getState()) { // When invention is inprog and inventor is free
-            invention.addInventor(inventor);
-            System.out.print("Send [" + inventor + "] ------------> [" + invention + "]\n");
-            inventor.setBusy();
-            if (invention.isFinished())
-                score++;
-        } else
-            System.out.print("NOTHING TO DO\n");
+        List<Inventor> libre;
+        libre = console.getLibres();
+        if (libre.isEmpty()) {
+            console.setAllFree();
+            System.out.println(this+" set All Free");
+        }
+        else {
+            console.send(libre.get(0), table.getInventions().get(0));
+            System.out.println(this + " send " + libre.get(0) + "-------->" + table.getInventions().get(0));
+            if(table.getInventions().get(0).isFinished())
+                console.addPoint();
+        }
     }
 
     int getScore() {
-        return score;
+        return console.getScore();
     }
 
-    void 
     @Override
     public String toString() {
         return name;

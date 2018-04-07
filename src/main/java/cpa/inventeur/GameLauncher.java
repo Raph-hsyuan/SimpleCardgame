@@ -13,9 +13,13 @@ public class GameLauncher {
     private Inventor newton = new Inventor("Newton");
     private Inventor edison = new Inventor("Edison");
     private Invention car = new Invention("CAR");
+    private Invention plane = new Invention("PLANE");
+    private Invention boat = new Invention("BOAT");
+    private Invention bike = new Invention("BIKE");
     
     GameLauncher() {
-        player1 = new RobotSimple("huang1", gameTable, toInventorList(newton,edison));
+        PlayerConsole console1 = new PlayerConsole(toInventorList(newton,edison));
+        player1 = new RobotSimple("huang1", console1);
     }
 
     List<Inventor> toInventorList(Inventor inventor1, Inventor inventor2){
@@ -30,7 +34,10 @@ public class GameLauncher {
      */
     void gameStart() {
         gameTable.putInvention(car);
-        while (gameTable.getInventions().isEmpty()) {
+        gameTable.putInvention(plane);
+        gameTable.putInvention(boat);
+        gameTable.putInvention(bike);
+        while (!gameTable.getInventions().isEmpty()) {
             player1.toPlay();
             gameTable.removeFinished();
         }

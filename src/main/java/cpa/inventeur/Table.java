@@ -1,6 +1,7 @@
 package cpa.inventeur;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -41,15 +42,14 @@ public class Table {
     void removeAll() {
         inventions.clear();
     }
-    
-    boolean removeInvention(Invention invention) {
-        return this.inventions.remove(invention);
-    }
-    
+
     void removeFinished() {
-        for(Invention find : inventions) {
-            if(find.isFinished())
-                inventions.remove(find);
+        Iterator<Invention> it = inventions.iterator();
+        while(it.hasNext()){
+            Invention x = it.next();
+            if(x.isFinished()){
+                it.remove();
+            }
         }
     }
     

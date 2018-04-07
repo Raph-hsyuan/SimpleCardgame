@@ -34,6 +34,10 @@ public class Invention {
             state = FINISHED;
         return state;
     }
+    
+    void setFinished() {
+        this.state = true;
+    }
 
     @Override
     public String toString() {
