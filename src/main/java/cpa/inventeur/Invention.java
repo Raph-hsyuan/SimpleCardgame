@@ -41,6 +41,16 @@ public class Invention {
 
     @Override
     public String toString() {
-        return name;
+        String invention = new String("\n\t|--------------|\n\t|===>"+name+"<===|\n");
+        if(this.isFinished())
+            invention+="\t|-IS FINISHED -|\n";
+        else
+            invention+="\t|-IN PROGRESS -|\n";
+        if(this.inventors.isEmpty())
+            invention+="\t|---[      ]---|\n";
+        else
+            invention+="\t|---"+inventors+"---|\n";
+        invention+="\t|--------------|\n";
+        return invention;
     }
 }

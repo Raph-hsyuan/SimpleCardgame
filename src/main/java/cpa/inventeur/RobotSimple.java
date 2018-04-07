@@ -25,10 +25,14 @@ public class RobotSimple {
             System.out.println(this+" set All Free");
         }
         else {
+            System.out.println("+++++++++++++++++++++++++++");
+            System.out.println("# "+this + " sends " + libre.get(0) + "-->" + table.getInventions().get(0));
             console.send(libre.get(0), table.getInventions().get(0));
-            System.out.println(this + " send " + libre.get(0) + "-------->" + table.getInventions().get(0));
-            if(table.getInventions().get(0).isFinished())
-                console.addPoint();
+            if(table.getInventions().get(0).isFinished()) {
+                console.addPoint();    
+                System.out.println("# "+this+" gets one point!!");
+                System.out.println("+++++++++++++++++++++++++++");
+            }              
         }
     }
 

@@ -54,6 +54,9 @@ public class Table {
     }
     
     void printTable() {
-        
+        System.out.println("\nTable : ");
+        for(Invention find : inventions) {
+            System.out.println(find);
+        }
     }
 }
