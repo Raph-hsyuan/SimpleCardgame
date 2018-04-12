@@ -26,7 +26,7 @@ class InventionTest {
     }
 
     @Test
-    void testGetState() {
+    void testIsFinished() {
         Invention invention = new Invention("tester");
         boolean with0inventor = invention.isFinished();
         invention.addInventor(inventor);

@@ -5,13 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
 class RobotSimpleTest {
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     Table table = Table.getInstance();
     RobotSimple robot;
     Invention invention1 = new Invention("invention1");
@@ -38,30 +35,27 @@ class RobotSimpleTest {
         PlayerConsole console = new PlayerConsole(inventors);
         robot = new RobotSimple("TESTER1",console);
         console.setAllFree();
-        System.setOut(new PrintStream(outContent));
         robot.toPlay();
-        assertEquals("TESTER1 send inventorA-------->invention1\r\n", outContent.toString());
         table.removeFinished();
-        outContent.reset();
-        System.setOut(new PrintStream(outContent));
+        assertEquals(3,table.getInventions().size());
+        assertEquals(1,console.getLibres().size());
         robot.toPlay();
-        assertEquals("TESTER1 send inventorB-------->invention2\r\n", outContent.toString());
         table.removeFinished();
-        outContent.reset();
-        System.setOut(new PrintStream(outContent));
+        assertEquals(2,table.getInventions().size());
+        assertEquals(0,console.getLibres().size());
         robot.toPlay();
-        assertEquals("TESTER1 set All Free\r\n", outContent.toString());
         table.removeFinished();
-        outContent.reset();
-        System.setOut(new PrintStream(outContent));
+        assertEquals(2,table.getInventions().size());
+        assertEquals(2,console.getLibres().size());
         robot.toPlay();
-        assertEquals("TESTER1 send inventorA-------->invention3\r\n", outContent.toString());
         table.removeFinished();
-        outContent.reset();
-        System.setOut(new PrintStream(outContent));
+        assertEquals(1,table.getInventions().size());
+        assertEquals(1,console.getLibres().size());
         robot.toPlay();
-        assertEquals("TESTER1 send inventorB-------->invention4\r\n", outContent.toString());
+        table.removeFinished();
         assertTrue(console.getLibres().isEmpty());
+        assertEquals(0,table.getInventions().size());
+        assertEquals(0,console.getLibres().size());
     }
     
     @AfterEach
