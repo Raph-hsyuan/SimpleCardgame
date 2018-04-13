@@ -8,55 +8,55 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static cpa.inventeur.Inventor.*;
+import static cpa.inventeur.Invention.*;
+
 class PlayerConsoleTest {
     Table table = Table.getInstance();
     RobotSimple robot;
-    Invention invention1 = new Invention("invention1");
-    Invention invention2 = new Invention("invention2");
-    Invention invention3 = new Invention("invention3");
-    Invention invention4 = new Invention("invention4");
-    Inventor inventorA = NEWTON;
-    Inventor inventorB = EDISON;
     List<Inventor> inventors = new ArrayList<>();
     PlayerConsole console;    
     
     @BeforeEach
     void initial() {
-        inventorA.initial();
-        inventorB.initial();
+        NEWTON.initial();
+        EDISON.initial();
+        CAR.initial();
+        PLANE.initial();
+        BOAT.initial();
+        BIKE.initial();
         table.removeAll();
-        table.putInvention(invention1);
-        table.putInvention(invention2);
-        table.putInvention(invention3);
-        table.putInvention(invention4);
-        inventors.add(inventorA);
-        inventors.add(inventorB);
+        table.putInvention(CAR);
+        table.putInvention(PLANE);
+        table.putInvention(BOAT);
+        table.putInvention(BIKE);
+        inventors.add(NEWTON);
+        inventors.add(EDISON);
         console = new PlayerConsole(inventors);
     }
     
     @Test
     void testSend() throws RuntimeException {
-        console.send(inventorA, invention1);
-        assertTrue(invention1.isFinished());
-        assertTrue(!inventorA.isFree());        
+        console.send(NEWTON, CAR);
+        assertTrue(!CAR.isFinished());
+        assertTrue(!NEWTON.isFree());        
         Throwable t = null;
         try{
-            console.send(inventorA, invention1);;
+            console.send(NEWTON, CAR);;
         }catch(Exception ex){
             t = ex;
         }
         assertNotNull(t);
         assertTrue(t instanceof RuntimeException);
-        assertEquals("Send ERROR!truetruefalsefalse",t.getMessage());
+        assertEquals("Send ERROR!truetruetruefalse",t.getMessage());
         
     }
 
     @Test
     void testSetAllFree() {
-        inventorA.setBusy();
-        inventorB.setBusy();
+        NEWTON.setBusy();
+        EDISON.setBusy();
         console.setAllFree();
-        assertEquals(true,inventorA.isFree()&&inventorB.isFree());
+        assertEquals(true,NEWTON.isFree()&&EDISON.isFree());
     }
 
     @Test
@@ -67,12 +67,12 @@ class PlayerConsoleTest {
     @Test
     void testGetLibres() {
         console.setAllFree();
-        inventorA.setBusy();
-        inventorB.setBusy();
+        NEWTON.setBusy();
+        EDISON.setBusy();
         assertTrue(console.getLibres().isEmpty());
         console.setAllFree();
-        inventorA.setBusy();
-        assertEquals(inventorB,console.getLibres().get(0));
+        NEWTON.setBusy();
+        assertEquals(EDISON,console.getLibres().get(0));
     }
 
     @Test

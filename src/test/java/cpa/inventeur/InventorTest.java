@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static cpa.inventeur.Inventor.*;
 import static cpa.inventeur.Skill.*;
 
@@ -17,6 +18,7 @@ class InventorTest {
     @BeforeEach
     void initial() {
         inventor.initial();
+        NEWTON.initial();
     }
 
     @Test

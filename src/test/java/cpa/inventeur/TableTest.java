@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static cpa.inventeur.Invention.*;
 
 class TableTest {
 
@@ -12,11 +13,15 @@ class TableTest {
     @BeforeEach
     void clear() {
         table.removeAll();
+        CAR.initial();
+        PLANE.initial();
+        BOAT.initial();
+        BIKE.initial();
     }
     
     @Test
     void testGetInvention() {
-        Invention invention1 = new Invention("invention1");
+        Invention invention1 = CAR;
         table.putInvention(invention1);
         assertEquals(invention1,table.getInventions().get(0));
         table.removeAll();
@@ -24,10 +29,10 @@ class TableTest {
     
     @Test
     void testPutInvention() {
-        Invention invention1 = new Invention("invention1");
-        Invention invention2 = new Invention("invention2");
-        Invention invention3 = new Invention("invention3");
-        Invention invention4 = new Invention("invention4");
+        Invention invention1 = CAR;
+        Invention invention2 = PLANE;
+        Invention invention3 = BOAT;
+        Invention invention4 = BIKE;
         assertTrue(table.putInvention(invention1));
         assertTrue(table.putInvention(invention2));
         assertTrue(table.putInvention(invention3));
@@ -43,9 +48,9 @@ class TableTest {
 
     @Test 
     void testRemoveAll(){
-        Invention invention1 = new Invention("invention1");
-        Invention invention2 = new Invention("invention2");
-        Invention invention3 = new Invention("invention3");
+        Invention invention1 = CAR;
+        Invention invention2 = PLANE;
+        Invention invention3 = BOAT;
         table.putInvention(invention1);
         table.putInvention(invention2);
         table.putInvention(invention3);
@@ -55,9 +60,9 @@ class TableTest {
     
     @Test
     void testRemoveFinished() {
-        Invention invention1 = new Invention("invention1");
-        Invention invention2 = new Invention("invention2");
-        Invention invention3 = new Invention("invention3");
+        Invention invention1 = CAR;
+        Invention invention2 = PLANE;
+        Invention invention3 = BOAT;
         table.putInvention(invention1);
         table.putInvention(invention2);
         table.putInvention(invention3);

@@ -9,7 +9,7 @@ import static cpa.inventeur.Skill.*;
  * @date 2018-4-13
  */
 public enum Inventor {
-    NEWTON("newton", 2, 0, 1, 1), EDISON("edison", 2, 0, 2, 0);
+    NEWTON("newton", 2, 0, 1, 1), EDISON("edison", 2, 2, 2, 0);
 
     private final String name;
     private boolean state;

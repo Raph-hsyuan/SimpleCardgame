@@ -8,13 +8,14 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 import static cpa.inventeur.Inventor.*;
+import static cpa.inventeur.Invention.*;
 class RobotSimpleTest {
     Table table = Table.getInstance();
     RobotSimple robot;
-    Invention invention1 = new Invention("invention1");
-    Invention invention2 = new Invention("invention2");
-    Invention invention3 = new Invention("invention3");
-    Invention invention4 = new Invention("invention4");
+    Invention invention1 = CAR;
+    Invention invention2 = PLANE;
+    Invention invention3 = BOAT;
+    Invention invention4 = BIKE;
     Inventor inventorA = NEWTON;
     Inventor inventorB = EDISON;
     List<Inventor> inventors = new ArrayList<>();
@@ -39,29 +40,29 @@ class RobotSimpleTest {
         console.setAllFree();
         robot.toPlay();
         table.removeFinished();
+        assertEquals(4,table.getInventions().size());
+        assertEquals(1,console.getLibres().size());
+        robot.toPlay();
+        table.removeFinished();
+        assertEquals(4,table.getInventions().size());
+        assertEquals(0,console.getLibres().size());
+        robot.toPlay();
+        table.removeFinished();
+        assertEquals(4,table.getInventions().size());
+        assertEquals(2,console.getLibres().size());
+        robot.toPlay();
+        table.removeFinished();
         assertEquals(3,table.getInventions().size());
         assertEquals(1,console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
-        assertEquals(2,table.getInventions().size());
-        assertEquals(0,console.getLibres().size());
-        robot.toPlay();
-        table.removeFinished();
-        assertEquals(2,table.getInventions().size());
-        assertEquals(2,console.getLibres().size());
-        robot.toPlay();
-        table.removeFinished();
-        assertEquals(1,table.getInventions().size());
-        assertEquals(1,console.getLibres().size());
-        robot.toPlay();
-        table.removeFinished();
         assertTrue(console.getLibres().isEmpty());
-        assertEquals(0,table.getInventions().size());
+        assertEquals(3,table.getInventions().size());
         assertEquals(0,console.getLibres().size());
     }
     
     @AfterEach
     void testGetScore() {
-        assertEquals(4,robot.getScore());
+        assertEquals(1,robot.getScore());
     }
 }
