@@ -2,7 +2,7 @@ package cpa.inventeur;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import static cpa.inventeur.Inventor.*;
 /**
  * @author HUANG Shenyuan
  * @date 2018-4-04
@@ -10,15 +10,13 @@ import java.util.List;
 public class GameEngine {
     private RobotSimple player1;
     private Table gameTable = Table.getInstance();
-    private Inventor newton = new Inventor("Newton");
-    private Inventor edison = new Inventor("Edison");
     private Invention car = new Invention(" CAR  ");
     private Invention plane = new Invention("PLANE ");
     private Invention boat = new Invention(" BOAT ");
     private Invention bike = new Invention(" BIKE ");
     PlayerConsole console1;
     GameEngine() {
-        console1 = new PlayerConsole(toInventorList(newton,edison));
+        console1 = new PlayerConsole(toInventorList(NEWTON,EDISON));
         player1 = new RobotSimple("huang1", console1);
     }
 

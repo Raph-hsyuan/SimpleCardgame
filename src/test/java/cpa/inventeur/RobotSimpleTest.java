@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
-
+import static cpa.inventeur.Inventor.*;
 class RobotSimpleTest {
     Table table = Table.getInstance();
     RobotSimple robot;
@@ -15,12 +15,14 @@ class RobotSimpleTest {
     Invention invention2 = new Invention("invention2");
     Invention invention3 = new Invention("invention3");
     Invention invention4 = new Invention("invention4");
-    Inventor inventorA = new Inventor("inventorA");
-    Inventor inventorB = new Inventor("inventorB");
+    Inventor inventorA = NEWTON;
+    Inventor inventorB = EDISON;
     List<Inventor> inventors = new ArrayList<>();
     
     @BeforeEach
     void initial() {
+        inventorA.initial();
+        inventorB.initial();
         table.removeAll();
         table.putInvention(invention1);
         table.putInvention(invention2);

@@ -2,16 +2,23 @@ package cpa.inventeur;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
+
+import static cpa.inventeur.Inventor.*;
 import org.junit.jupiter.api.Test;
 
 class InventionTest {
 
-    Inventor inventor = new Inventor("tester");
+    Inventor inventor = NEWTON;
     private static final boolean FINISHED = true;
     private static final boolean INPROGRESS = false;
     private static final boolean SUCCESS = true;
     private static final boolean FAILED = false;
 
+    @BeforeEach
+    void initial() {
+        inventor.initial();
+    }
     
     @Test
     void testAddInventor() {
