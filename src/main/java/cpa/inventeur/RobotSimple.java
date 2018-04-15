@@ -6,7 +6,7 @@ import java.util.List;
  * @author Liu Jiaqi
  * @date 2018-4-02
  */
-public class RobotSimple {
+public class RobotSimple implements Robot{
     private Table table;
     private String name;
     private PlayerConsole console;
@@ -17,7 +17,8 @@ public class RobotSimple {
         this.name = name;
     }
 
-    void toPlay() {
+    @Override
+    public void toPlay() {
         List<Inventor> libre;
         libre = console.getLibres();
         if (libre.isEmpty()) {
@@ -36,7 +37,8 @@ public class RobotSimple {
         }
     }
 
-    int getScore() {
+    @Override
+    public int getScore() {
         return console.getScore();
     }
 

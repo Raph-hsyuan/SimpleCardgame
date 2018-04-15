@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2018-4-13
  */
 public enum Invention {
-    CAR(" CAR  ", 3, 1, 2, 2), PLANE("PLANE ", 2, 1, 4, 4), BOAT(" BOAT ", 1, 4, 3, 2), BIKE(" BIKE ", 3, 3, 3, 3);
+    CAR(" CAR  ", 4, 1, 2, 2), PLANE("PLANE ", 2, 4, 1, 1), BOAT(" BOAT ", 3, 3, 3, 0), BIKE(" BIKE ", 4, 0, 2, 2);
 
     private static final boolean FINISHED = true;
     private static final boolean INPROGRESS = false;

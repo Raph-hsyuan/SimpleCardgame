@@ -1,17 +1,23 @@
 package cpa.inventeur;
 
+import static cpa.inventeur.Invention.BIKE;
+import static cpa.inventeur.Invention.BOAT;
+import static cpa.inventeur.Invention.CAR;
+import static cpa.inventeur.Invention.PLANE;
+import static cpa.inventeur.Inventor.EDISON;
+import static cpa.inventeur.Inventor.NEWTON;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import java.util.List;
-import static cpa.inventeur.Inventor.*;
-import static cpa.inventeur.Invention.*;
-class RobotSimpleTest {
+
+class RobotNormalTest {
     Table table = Table.getInstance();
-    RobotSimple robot;
+    Robot robot;
     Invention invention1 = CAR;
     Invention invention2 = PLANE;
     Invention invention3 = BOAT;
@@ -40,7 +46,7 @@ class RobotSimpleTest {
     @Test
     void testToPlay() {
         PlayerConsole console = new PlayerConsole(inventors);
-        robot = new RobotSimple("TESTER1",console);
+        robot = new RobotNormal("TESTER1",console);
         console.setAllFree();
         robot.toPlay();
         table.removeFinished();

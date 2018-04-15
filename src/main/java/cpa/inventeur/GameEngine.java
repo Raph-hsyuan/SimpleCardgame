@@ -10,13 +10,24 @@ import static cpa.inventeur.Invention.*;
  * @date 2018-4-04
  */
 public class GameEngine {
-    private RobotSimple player1;
+    private Robot player1;
     private Table gameTable = Table.getInstance();
     PlayerConsole console1;
 
-    GameEngine() {
+    GameEngine(String robot) {
         console1 = new PlayerConsole(toInventorList(NEWTON, EDISON));
-        player1 = new RobotSimple("huang1", console1);
+        switch(robot) {
+        case "NORMAL":
+            player1 = new RobotNormal("Liu1", console1);
+            break;
+        case "SIMPLE":
+            player1 = new RobotSimple("huang1", console1);
+            break;
+        default:
+            player1 = new RobotSimple("huang1", console1);
+            break;
+        }
+
     }
 
     List<Inventor> toInventorList(Inventor inventor1, Inventor inventor2) {
