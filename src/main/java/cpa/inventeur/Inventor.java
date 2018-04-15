@@ -50,9 +50,30 @@ public enum Inventor {
         skills.putAll(iniSkills);
         state = FREE;
     }
-    
+
     int getSkillValue(Skill skill) {
         return skills.get(skill);
     }
 
+    public String toCard() {
+        StringBuilder inventor = new StringBuilder();
+        inventor.append("\n\t|--------|\n\t|>" + name + "<|\n");
+        if (this.isFree())
+            inventor.append("\t|- FREE -|\n");
+        else
+            inventor.append("\t|-OCCUPE-|\n");
+        inventor.append("\t|--------|\n");
+        for (Skill skill : skills.keySet()) {
+            inventor.append("\t|-" + skill + toStars(skill) + "\n");
+        }
+        return inventor.toString();
+    }
+
+    String toStars(Skill skill) {
+        StringBuilder stars = new StringBuilder();
+        int num = this.getSkillValue(skill);
+        for (int i = 0; i < num; i++)
+            stars.append("бя");
+        return stars.toString();
+    }
 }

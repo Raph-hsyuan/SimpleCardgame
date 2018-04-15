@@ -31,7 +31,7 @@ public class PlayerConsole {
             invention.addInventor(inventor);
             inventor.setBusy();
         } else
-            throw new RuntimeException("Send ERROR!"+con1+con2+con3+con4);
+            throw new RuntimeException("Send ERROR!" + con1 + con2 + con3 + con4);
     }
 
     /**
@@ -63,22 +63,14 @@ public class PlayerConsole {
     void addPoint() {
         score++;
     }
-    
+
     int getScore() {
         return score;
     }
-    
+
     void printHand() {
         System.out.println("\nHand:");
-        for(Inventor find:inventors) {
-            String inventor = new String("Inventor:");
-            inventor+=find;
-            inventor+="\nState:";
-            if(find.isFree())
-                inventor+="Libre\n";
-            else
-                inventor+="Occupe\n";
-            System.out.println(inventor);
-        }
+        for (Inventor find : inventors)
+            System.out.println(find.toCard());
     }
 }

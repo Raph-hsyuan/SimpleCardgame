@@ -5,7 +5,7 @@ package cpa.inventeur;
  * @date 2018-4-12
  */
 public enum Skill {
-	PHYSICS("physics"),CHEMISTRY("chemistry"),MACHINERY("machinery"),MATHS("maths");
+	PHYSICS("PHY"),CHEMISTRY("CHE"),MACHINERY("MAC"),MATHS("MAT");
 	private String name;
 	
 	Skill(String name){

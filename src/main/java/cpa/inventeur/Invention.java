@@ -15,8 +15,7 @@ import java.util.List;
  * @date 2018-4-13
  */
 public enum Invention {
-    CAR(" CAR  ", 3, 1, 2, 2), PLANE("PLANE ", 2, 1, 4, 4), 
-    BOAT(" BOAT ", 1, 4, 3, 2), BIKE(" BIKE ", 3, 3, 3, 3);
+    CAR(" CAR  ", 3, 1, 2, 2), PLANE("PLANE ", 2, 1, 4, 4), BOAT(" BOAT ", 1, 4, 3, 2), BIKE(" BIKE ", 3, 3, 3, 3);
 
     private static final boolean FINISHED = true;
     private static final boolean INPROGRESS = false;
@@ -49,7 +48,8 @@ public enum Invention {
                 flag = SUCCESS;
             }
         }
-        if(flag) inventors.add(inventor);
+        if (flag)
+            inventors.add(inventor);
         return flag;
     }
 
@@ -57,7 +57,8 @@ public enum Invention {
      * @return true if all demandes have been met
      */
     boolean isFinished() {
-        if (state) return state;
+        if (state)
+            return state;
         int sum = 0;
         for (Integer find : demande.values())
             sum += find;
@@ -72,19 +73,23 @@ public enum Invention {
         this.state = FINISHED;
     }
 
+    public String toCard() {
+        StringBuilder invention = new StringBuilder();
+        invention.append("\n\t|--------------|\n\t|===>" + name + "<===|\n");
+        if (this.isFinished())
+            invention.append("\t|-IS FINISHED -|\n");
+        else
+            invention.append("\t|-IN PROGRESS -|\n");
+        invention.append("\t|--------------|\n");
+        for (Skill skill : demande.keySet()) {
+            invention.append("\t|-" + skill + toStars(skill) + "\n");
+        }
+        return invention.toString();
+    }
+
     @Override
     public String toString() {
-        String invention = new String("\n\t|--------------|\n\t|===>" + name + "<===|\n");
-        if (this.isFinished())
-            invention += "\t|-IS FINISHED -|\n";
-        else
-            invention += "\t|-IN PROGRESS -|\n";
-        if (this.inventors.isEmpty())
-            invention += "\t|---[      ]---|\n";
-        else
-            invention += "\t|---" + inventors + "---|\n";
-        invention += "\t|--------------|\n";
-        return invention;
+        return name;
     }
 
     int getDemandeValue(Skill skill) {
@@ -95,10 +100,26 @@ public enum Invention {
         demande -= has;
         return demande <= 0 ? 0 : demande;
     }
-    
+
     void initial() {
         demande.putAll(iniDemande);
         state = INPROGRESS;
         inventors.clear();
+    }
+
+    String toStars(Skill skill) {
+        StringBuilder stars = new StringBuilder();
+        int iniNum = this.iniDemande.get(skill);
+        int num = iniNum - this.getDemandeValue(skill);
+        int max = iniNum;
+        for (int i = 0; i < max; i++) {
+            if (num > 0)
+                stars.append("¡ï");
+            else if (iniNum > 0)
+                stars.append("¡î");
+            iniNum--;
+            num--;
+        }
+        return stars.toString();
     }
 }

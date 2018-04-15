@@ -23,11 +23,10 @@ class InventionTest {
         BOAT.initial();
         BIKE.initial();
     }
-    
+
     /**
-     * CAR(" CAR  ", 3, 1, 2, 2)
-     * NEWTON("newton", 2, 0, 1, 1), 
-     * EDISON("edison", 2, 2, 2, 0)
+     * CAR(" CAR ", 3, 1, 2, 2) NEWTON("newton", 2, 0, 1, 1), EDISON("edison", 2, 2,
+     * 2, 0)
      */
     @Test
     void testAddInventor() {
@@ -35,16 +34,15 @@ class InventionTest {
         boolean resultSS = CAR.addInventor(NEWTON);
         boolean resultF = CAR.addInventor(NEWTON);
         int expectSize = 2;
-        assertEquals(SUCCESS,resultS);
-        assertEquals(SUCCESS,resultSS);
-        assertEquals(FAILED,resultF);
-        assertEquals(expectSize,CAR.inventors.size());
+        assertEquals(SUCCESS, resultS);
+        assertEquals(SUCCESS, resultSS);
+        assertEquals(FAILED, resultF);
+        assertEquals(expectSize, CAR.inventors.size());
     }
 
     /**
-     * CAR(" CAR  ", 3, 1, 2, 2)
-     * NEWTON("newton", 2, 0, 1, 1), 
-     * EDISON("edison", 2, 2, 2, 0)
+     * CAR(" CAR ", 3, 1, 2, 2) NEWTON("newton", 2, 0, 1, 1), EDISON("edison", 2, 2,
+     * 2, 0)
      */
     @Test
     void testIsFinished() {
@@ -56,10 +54,10 @@ class InventionTest {
         boolean with2inventor = invention.isFinished();
         invention.addInventor(EDISON);
         boolean with3inventor = invention.isFinished();
-        assertEquals(INPROGRESS,with0inventor);
-        assertEquals(INPROGRESS,with1inventor);
-        assertEquals(INPROGRESS,with2inventor);
-        assertEquals(FINISHED,with3inventor);
+        assertEquals(INPROGRESS, with0inventor);
+        assertEquals(INPROGRESS, with1inventor);
+        assertEquals(INPROGRESS, with2inventor);
+        assertEquals(FINISHED, with3inventor);
     }
 
 }

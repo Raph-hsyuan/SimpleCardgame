@@ -64,7 +64,7 @@ public class GameEngine {
         System.out.println("|PLAYER\t" + "|SCORE");
         System.out.println("|" + player1 + "\t|" + player1.getScore());
     }
-    
+
     /**
      * Put All Inventions on table
      */
@@ -74,7 +74,7 @@ public class GameEngine {
         gameTable.putInvention(BOAT);
         gameTable.putInvention(BIKE);
     }
-    
+
     /**
      * @return true if game is not finished
      */
