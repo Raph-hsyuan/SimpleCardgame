@@ -68,9 +68,11 @@ public class PlayerConsole {
         return score;
     }
 
-    void printHand() {
-        System.out.println("\nHand:");
+    StringBuilder printHand() {
+        StringBuilder hand = new StringBuilder();
+        hand.append("\nHand:");
         for (Inventor find : inventors)
-            System.out.println(find.toCard());
+            hand.append(find.toCard());
+        return hand;
     }
 }

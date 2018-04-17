@@ -52,10 +52,11 @@ public class Table {
         }
     }
 
-    void printTable() {
-        System.out.println("\nTable : ");
-        for (Invention find : inventions) {
-            System.out.println(find.toCard());
-        }
+    StringBuilder printTable() {
+        StringBuilder table = new StringBuilder();
+        table.append("\nTable:");
+        for (Invention find : inventions)
+            table.append(find.toCard());
+        return table;
     }
 }

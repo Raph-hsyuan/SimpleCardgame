@@ -1,15 +1,18 @@
 package cpa.inventeur;
 
 import java.util.List;
+import java.util.logging.Logger;
+import static java.util.logging.Level.*;
 
 /**
  * @author Liu Jiaqi
  * @date 2018-4-02
  */
-public class RobotSimple implements Robot{
+public class RobotSimple implements Robot {
     private Table table;
     private String name;
     private PlayerConsole console;
+    private static final Logger LOG = Logger.getLogger("RobotInfo");
 
     RobotSimple(String name, PlayerConsole console) {
         table = Table.getInstance();
@@ -22,18 +25,12 @@ public class RobotSimple implements Robot{
         List<Inventor> libre;
         libre = console.getLibres();
         if (libre.isEmpty()) {
-            console.setAllFree();
-            System.out.println(this+" set All Free");
-        }
-        else {
-            System.out.println("+++++++++++++++++++++++++++");
-            System.out.println("# "+this + " sends " + libre.get(0) + "-->" + table.getInventions().get(0));
-            console.send(libre.get(0), table.getInventions().get(0));
-            if(table.getInventions().get(0).isFinished()) {
-                console.addPoint();    
-                System.out.println("# "+this+" gets one point!!");
-                System.out.println("+++++++++++++++++++++++++++");
-            }              
+            setAllFree();
+        } else {
+            send(libre.get(0), table.getInventions().get(0));
+            if (table.getInventions().get(0).isFinished()) {
+                addPoint();
+            }
         }
     }
 
@@ -45,5 +42,22 @@ public class RobotSimple implements Robot{
     @Override
     public String toString() {
         return name;
+    }
+
+    private void send(Inventor inventor, Invention invention) {
+        console.send(inventor, invention);
+        StringBuilder done = new StringBuilder();
+        done.append("# " + this + " sends " + inventor + "---->" + invention);
+        LOG.log(INFO, "\nRobotInfo:\n{0}\n\n", done);
+    }
+
+    private void addPoint() {
+        console.addPoint();
+        LOG.log(INFO, "#{0} gets one point!!\n\n", this);
+    }
+
+    private void setAllFree() {
+        console.setAllFree();
+        LOG.log(INFO, "#{0} set All Free\n\n", this);
     }
 }

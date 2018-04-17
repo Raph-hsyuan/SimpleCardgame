@@ -2,6 +2,8 @@ package cpa.inventeur;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+import static java.util.logging.Level.*;
 import static cpa.inventeur.Inventor.*;
 import static cpa.inventeur.Invention.*;
 
@@ -13,10 +15,11 @@ public class GameEngine {
     private Robot player1;
     private Table gameTable = Table.getInstance();
     PlayerConsole console1;
+    private static final Logger LOG = Logger.getLogger("GameInfo");
 
     GameEngine(String robot) {
         console1 = new PlayerConsole(toInventorList(NEWTON, EDISON));
-        switch(robot) {
+        switch (robot) {
         case "NORMAL":
             player1 = new RobotNormal("Liu1", console1);
             break;
@@ -44,36 +47,30 @@ public class GameEngine {
         putInventions();
         int round = 1;
         while (notFinished()) {
-            System.out.println("Round " + round + " :");
-            console1.printHand();
-            gameTable.printTable();
-            player1.toPlay();
-            gameTable.printTable();
-            System.out.println("Round " + round + " End");
-            printScore();
-            System.out.println("-\n-\n-\n-\n-\n-\n-\n-");
-            gameTable.removeFinished();
+            printRoundStart(round);
+            playerAction();
+            printRoundFinish(round);
+            removeFinished();
             round++;
         }
         printFinish();
-        printScore();
     }
 
     /**
      * Print GameOver
      */
     void printFinish() {
-        System.out.println("\n\n\n***************");
-        System.out.println("*GAME FINISHED*");
-        System.out.println("***************");
+        LOG.log(INFO, "\n***************\n*GAME FINISHED*\n***************\n{0}", getScore());
     }
 
     /**
      * Print the final result
      */
-    void printScore() {
-        System.out.println("|PLAYER\t" + "|SCORE");
-        System.out.println("|" + player1 + "\t|" + player1.getScore());
+    StringBuilder getScore() {
+        StringBuilder score = new StringBuilder();
+        score.append("|PLAYER\t|SCORE\n");
+        score.append("|" + player1 + "\t|" + player1.getScore());
+        return score;
     }
 
     /**
@@ -91,5 +88,31 @@ public class GameEngine {
      */
     boolean notFinished() {
         return !gameTable.getInventions().isEmpty();
+    }
+
+    void removeFinished() {
+        gameTable.removeFinished();
+    }
+
+    void printRoundStart(int round) {
+        StringBuilder start = new StringBuilder();
+        start.append("Round " + round + " :");
+        start.append(console1.printHand());
+        start.append(gameTable.printTable());
+        LOG.log(INFO, "\nA new Round Start\n{0}", start);
+    }
+
+    void printRoundFinish(int round) {
+        StringBuilder finish = new StringBuilder();
+        finish.append("Round " + round + " End");
+        finish.append(console1.printHand());
+        finish.append(gameTable.printTable());
+        finish.append("\n" + getScore());
+        finish.append("\n\n\n\n#####################\n#####################\n\n");
+        LOG.log(INFO, "\nA Round Finish\n{0}", finish);
+    }
+
+    void playerAction() {
+        player1.toPlay();
     }
 }

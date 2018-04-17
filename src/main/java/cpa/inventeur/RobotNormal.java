@@ -1,6 +1,8 @@
 package cpa.inventeur;
 
 import java.util.List;
+import java.util.logging.Logger;
+import static java.util.logging.Level.*;
 
 /**
  * @author Liu Jiaqi
@@ -10,6 +12,7 @@ public class RobotNormal implements Robot {
     private Table table;
     private String name;
     private PlayerConsole console;
+    private static final Logger LOG = Logger.getLogger("RobotInfo");
 
     RobotNormal(String name, PlayerConsole console) {
         table = Table.getInstance();
@@ -22,8 +25,7 @@ public class RobotNormal implements Robot {
         List<Inventor> libre;
         libre = console.getLibres();
         if (libre.isEmpty()) {
-            console.setAllFree();
-            System.out.println(this + " set All Free");
+            setAllFree();
         } else {
             int match = 0;
             int maxmatch = 0;
@@ -31,7 +33,7 @@ public class RobotNormal implements Robot {
             Invention bestInvention = table.getInventions().get(0);
             for (Invention invention : table.getInventions()) {
                 for (Inventor inventor : console.getLibres()) {
-                    if(toFinish(inventor,invention)) {
+                    if (toFinish(inventor, invention)) {
                         bestInventor = inventor;
                         bestInvention = invention;
                         break;
@@ -39,9 +41,8 @@ public class RobotNormal implements Robot {
                     for (Skill skill : Skill.values()) {
                         int demande = invention.getDemandeValue(skill);
                         int has = inventor.getSkillValue(skill);
-                        if (demande > 0) {
+                        if (demande > 0)
                             match += demande - invention.residualDemande(has, demande);
-                        }
                     }
                     if (maxmatch < match) {
                         maxmatch = match;
@@ -51,15 +52,28 @@ public class RobotNormal implements Robot {
                     match = 0;
                 }
             }
-            System.out.println("+++++++++++++++++++++++++++");
-            System.out.println("# " + this + " sends "+bestInventor+"---->" + bestInvention);
-            console.send(bestInventor, bestInvention); // send an inventor
+            send(bestInventor, bestInvention); // send an inventor
             if (bestInvention.isFinished()) { // if the invention is finished
-                console.addPoint(); // add point
-                System.out.println("# " + this + " gets one point!!");
-                System.out.println("+++++++++++++++++++++++++++");
+                addPoint();
             }
         }
+    }
+
+    private void send(Inventor inventor, Invention invention) {
+        console.send(inventor, invention);
+        StringBuilder done = new StringBuilder();
+        done.append("# " + this + " sends " + inventor + "---->" + invention);
+        LOG.log(INFO, "\nRobotInfo:\n{0}\n\n", done);
+    }
+
+    private void addPoint() {
+        console.addPoint();
+        LOG.log(INFO, "#{0} gets one point!!\n\n", this);
+    }
+
+    private void setAllFree() {
+        console.setAllFree();
+        LOG.log(INFO, "#{0} set All Free\n\n", this);
     }
 
     @Override
@@ -71,8 +85,7 @@ public class RobotNormal implements Robot {
     public String toString() {
         return name;
     }
-    
-    
+
     /**
      * @param inventor
      * @param invention
@@ -81,7 +94,7 @@ public class RobotNormal implements Robot {
     boolean toFinish(Inventor inventor, Invention invention) {
         boolean flag = true;
         for (Skill skill : Skill.values()) {
-            flag&=inventor.getSkillValue(skill)>=invention.getDemandeValue(skill);
+            flag &= inventor.getSkillValue(skill) >= invention.getDemandeValue(skill);
         }
         return flag;
     }
