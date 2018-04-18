@@ -24,9 +24,25 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.6.0</version>
+                    <executions>
+                        <execution>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <mainClass>cpa.inventeur.Main</mainClass>
+                            </configuration>
+                        </execution>
+                    </executions>
+            </plugin>      
         </plugins>
     </build>
-    
+        
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -40,6 +56,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 
 </project>
