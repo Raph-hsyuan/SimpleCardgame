@@ -98,4 +98,9 @@ public class RobotNormal implements Robot {
         }
         return flag;
     }
+    
+    @Override
+    public void closeLogger() {
+        LOG.setLevel(OFF);
+    }
 }

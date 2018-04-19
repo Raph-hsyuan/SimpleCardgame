@@ -13,7 +13,6 @@ public class RobotSimple implements Robot {
     private String name;
     private PlayerConsole console;
     private static final Logger LOG = Logger.getLogger("RobotInfo");
-
     RobotSimple(String name, PlayerConsole console) {
         table = Table.getInstance();
         this.console = console;
@@ -60,4 +59,10 @@ public class RobotSimple implements Robot {
         console.setAllFree();
         LOG.log(INFO, "#{0} set All Free\n\n", this);
     }
+    
+    @Override
+    public void closeLogger() {
+        LOG.setLevel(OFF);
+    }
+    
 }

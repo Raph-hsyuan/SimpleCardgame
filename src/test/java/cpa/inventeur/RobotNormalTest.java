@@ -1,11 +1,7 @@
 package cpa.inventeur;
 
-import static cpa.inventeur.Invention.BIKE;
-import static cpa.inventeur.Invention.BOAT;
-import static cpa.inventeur.Invention.CAR;
-import static cpa.inventeur.Invention.PLANE;
-import static cpa.inventeur.Inventor.EDISON;
-import static cpa.inventeur.Inventor.NEWTON;
+import static cpa.inventeur.Inventor.*;
+import static cpa.inventeur.Invention.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -18,61 +14,56 @@ import org.junit.jupiter.api.Test;
 class RobotNormalTest {
     Table table = Table.getInstance();
     Robot robot;
-    Invention invention1 = CAR;
-    Invention invention2 = PLANE;
-    Invention invention3 = BOAT;
-    Invention invention4 = BIKE;
-    Inventor inventorA = NEWTON;
-    Inventor inventorB = EDISON;
     List<Inventor> inventors = new ArrayList<>();
-    
+
     @BeforeEach
     void initial() {
-        inventorA.initial();
-        inventorB.initial();
+        NEWTON.initial();
+        EDISON.initial();
         table.removeAll();
-        invention1.initial();
-        invention2.initial();
-        invention3.initial();
-        invention4.initial();
-        table.putInvention(invention1);
-        table.putInvention(invention2);
-        table.putInvention(invention3);
-        table.putInvention(invention4);
-        inventors.add(inventorA);
-        inventors.add(inventorB);
+        CAR.initial();
+        PLANE.initial();
+        BOAT.initial();
+        BIKE.initial();
+        table.putInvention(CAR);
+        table.putInvention(PLANE);
+        table.putInvention(BOAT);
+        table.putInvention(BIKE);
+        inventors.add(NEWTON);
+        inventors.add(EDISON);
     }
 
     @Test
     void testToPlay() {
         PlayerConsole console = new PlayerConsole(inventors);
-        robot = new RobotNormal("TESTER1",console);
+        robot = new RobotNormal("TESTER1", console);
+        robot.closeLogger();
         console.setAllFree();
         robot.toPlay();
         table.removeFinished();
-        assertEquals(4,table.getInventions().size());
-        assertEquals(1,console.getLibres().size());
+        assertEquals(4, table.getInventions().size());
+        assertEquals(1, console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
-        assertEquals(4,table.getInventions().size());
-        assertEquals(0,console.getLibres().size());
+        assertEquals(4, table.getInventions().size());
+        assertEquals(0, console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
-        assertEquals(4,table.getInventions().size());
-        assertEquals(2,console.getLibres().size());
+        assertEquals(4, table.getInventions().size());
+        assertEquals(2, console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
-        assertEquals(3,table.getInventions().size());
-        assertEquals(1,console.getLibres().size());
+        assertEquals(3, table.getInventions().size());
+        assertEquals(1, console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
         assertTrue(console.getLibres().isEmpty());
-        assertEquals(3,table.getInventions().size());
-        assertEquals(0,console.getLibres().size());
+        assertEquals(3, table.getInventions().size());
+        assertEquals(0, console.getLibres().size());
     }
-    
+
     @AfterEach
     void testGetScore() {
-        assertEquals(1,robot.getScore());
+        assertEquals(1, robot.getScore());
     }
 }

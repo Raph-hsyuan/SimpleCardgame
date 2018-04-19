@@ -7,40 +7,36 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
+
 import static cpa.inventeur.Inventor.*;
 import static cpa.inventeur.Invention.*;
 class RobotSimpleTest {
     Table table = Table.getInstance();
     RobotSimple robot;
-    Invention invention1 = CAR;
-    Invention invention2 = PLANE;
-    Invention invention3 = BOAT;
-    Invention invention4 = BIKE;
-    Inventor inventorA = NEWTON;
-    Inventor inventorB = EDISON;
     List<Inventor> inventors = new ArrayList<>();
-    
+
     @BeforeEach
     void initial() {
-        inventorA.initial();
-        inventorB.initial();
+        NEWTON.initial();
+        EDISON.initial();
         table.removeAll();
-        invention1.initial();
-        invention2.initial();
-        invention3.initial();
-        invention4.initial();
-        table.putInvention(invention1);
-        table.putInvention(invention2);
-        table.putInvention(invention3);
-        table.putInvention(invention4);
-        inventors.add(inventorA);
-        inventors.add(inventorB);
+        CAR.initial();
+        PLANE.initial();
+        BOAT.initial();
+        BIKE.initial();
+        table.putInvention(CAR);
+        table.putInvention(PLANE);
+        table.putInvention(BOAT);
+        table.putInvention(BIKE);
+        inventors.add(NEWTON);
+        inventors.add(EDISON);
     }
 
     @Test
     void testToPlay() {
         PlayerConsole console = new PlayerConsole(inventors);
         robot = new RobotSimple("TESTER1",console);
+        robot.closeLogger();
         console.setAllFree();
         robot.toPlay();
         table.removeFinished();
