@@ -38,6 +38,14 @@ public class Table {
         return inventions;
     }
 
+    List<Invention> getNotFinished(){
+        List<Invention> nf = new ArrayList<>();
+        for(Invention invention : inventions) {
+            if(!invention.isFinished())
+                nf.add(invention);
+        }
+        return nf;
+    }
     void removeAll() {
         inventions.clear();
     }
@@ -58,5 +66,10 @@ public class Table {
         for (Invention find : inventions)
             table.append(find.toCard());
         return table;
+    }
+    
+    void initialInventions() {
+        for(Invention invention:inventions)
+            invention.initial();
     }
 }

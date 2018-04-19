@@ -9,7 +9,12 @@ import static cpa.inventeur.Skill.*;
  * @date 2018-4-13
  */
 public enum Inventor {
-    NEWTON("newton", 2, 0, 1, 1), EDISON("edison", 2, 2, 2, 0);
+    EDISON("edison", 1, 0, 1, 0), EINSTEIN("einstein", 1, 1, 0, 1), //RED
+    NEWTON("newton", 1, 0, 1, 1), GALILEI("galilei", 1, 1, 0, 0), //YELLOW
+    WATT("watt", 0, 1, 2, 0), FRANKLIN("franklin", 1, 0, 1, 1), //PURPLE
+    ORESME("oresme", 1, 0, 0, 1), FIBONACCI("fibonacci", 0, 1, 1, 0),//BLUE
+    HYPATIA("hypatia", 1, 0, 0, 1), HYPPOKRATES("hyppokrates", 0, 2, 1, 0);//GREEN 
+    
 
     private final String name;
     private boolean state;

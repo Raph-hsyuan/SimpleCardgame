@@ -39,6 +39,7 @@ public enum Invention {
 
     boolean addInventor(Inventor inventor) {
         boolean flag = FAILED;
+        boolean st = FINISHED;
         for (EnumMap.Entry<Skill, Integer> entry : demande.entrySet()) {
             Skill key = entry.getKey();
             int needs = entry.getValue();
@@ -47,9 +48,11 @@ public enum Invention {
                 demande.replace(key, needs, residualDemande(has, needs));
                 flag = SUCCESS;
             }
+            if (entry.getValue() > 0) st = INPROGRESS;
         }
         if (flag)
             inventors.add(inventor);
+        this.state = st;
         return flag;
     }
 
@@ -57,15 +60,6 @@ public enum Invention {
      * @return true if all demandes have been met
      */
     boolean isFinished() {
-        if (state)
-            return state;
-        int sum = 0;
-        for (Integer find : demande.values())
-            sum += find;
-        if (sum == 0)
-            state = FINISHED;
-        else
-            state = INPROGRESS;
         return state;
     }
 

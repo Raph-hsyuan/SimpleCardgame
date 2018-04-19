@@ -13,6 +13,7 @@ public class RobotSimple implements Robot {
     private String name;
     private PlayerConsole console;
     private static final Logger LOG = Logger.getLogger("RobotInfo");
+
     RobotSimple(String name, PlayerConsole console) {
         table = Table.getInstance();
         this.console = console;
@@ -23,14 +24,25 @@ public class RobotSimple implements Robot {
     public void toPlay() {
         List<Inventor> libre;
         libre = console.getLibres();
+        boolean st = false;
+        Invention mark = table.getNotFinished().get(0);
         if (libre.isEmpty()) {
             setAllFree();
         } else {
-            send(libre.get(0), table.getInventions().get(0));
-            if (table.getInventions().get(0).isFinished()) {
+            for (Invention find : table.getNotFinished()) {
+                if(send(libre.get(0), find)) {
+                    mark = find;
+                    st = true;
+                    break;
+                }     
+            }
+            if(!st)
+                setAllFree();
+            else if (mark.isFinished()) {
                 addPoint();
             }
         }
+
     }
 
     @Override
@@ -43,11 +55,11 @@ public class RobotSimple implements Robot {
         return name;
     }
 
-    private void send(Inventor inventor, Invention invention) {
-        console.send(inventor, invention);
+    private boolean send(Inventor inventor, Invention invention) {
         StringBuilder done = new StringBuilder();
         done.append("# " + this + " sends " + inventor + "---->" + invention);
         LOG.log(INFO, "\nRobotInfo:\n{0}\n\n", done);
+        return console.send(inventor, invention);
     }
 
     private void addPoint() {
@@ -59,10 +71,10 @@ public class RobotSimple implements Robot {
         console.setAllFree();
         LOG.log(INFO, "#{0} set All Free\n\n", this);
     }
-    
+
     @Override
     public void closeLogger() {
         LOG.setLevel(OFF);
     }
-    
+
 }

@@ -1,43 +1,49 @@
 package cpa.inventeur;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 import static java.util.logging.Level.*;
-import static cpa.inventeur.Inventor.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import static cpa.inventeur.Invention.*;
 
 /**
  * @author HUANG Shenyuan
+ * @author WU Kejia
  * @date 2018-4-04
  */
 public class GameEngine {
-    private Robot player1;
+    private Robot player;
     private Table gameTable = Table.getInstance();
-    PlayerConsole console1;
     private static final Logger LOG = Logger.getLogger("GameInfo");
-
-    GameEngine(String robot) {
-        console1 = new PlayerConsole(toInventorList(NEWTON, EDISON));
-        switch (robot) {
-        case "NORMAL":
-            player1 = new RobotNormal("Liu1", console1);
-            break;
-        case "SIMPLE":
-            player1 = new RobotSimple("huang1", console1);
-            break;
-        default:
-            player1 = new RobotSimple("huang1", console1);
-            break;
+    private List<Robot> players = new ArrayList<>();
+    private List<PlayerConsole> consoles = new ArrayList<>();
+    GameEngine(Map<String, Level> build) {
+        if (build.size() > 5)
+            throw new RuntimeException("Max 5 players");
+        PlayerColor[] colors = PlayerColor.values();
+        int i = 0;
+        for (Entry<String, Level> entry : build.entrySet()) {
+            PlayerConsole console = new PlayerConsole(colors[i++]);
+            Level level = entry.getValue();
+            String name = entry.getKey();
+            switch (level) {
+            case NORMAL:
+                player = new RobotNormal(name, console);
+                break;
+            case SIMPLE:
+                player = new RobotSimple(name, console);
+                break;
+            default:
+                player = new RobotSimple(name, console);
+                break;
+            }
+            players.add(player);
         }
 
-    }
-
-    List<Inventor> toInventorList(Inventor inventor1, Inventor inventor2) {
-        List<Inventor> inventors = new ArrayList<>();
-        inventors.add(inventor1);
-        inventors.add(inventor2);
-        return inventors;
     }
 
     /**
@@ -69,7 +75,8 @@ public class GameEngine {
     StringBuilder getScore() {
         StringBuilder score = new StringBuilder();
         score.append("|PLAYER\t|SCORE\n");
-        score.append("|" + player1 + "\t|" + player1.getScore());
+        for(Robot p : players)
+            score.append("\n|" + p + "\t|" + p.getScore());
         return score;
     }
 
@@ -87,7 +94,7 @@ public class GameEngine {
      * @return true if game is not finished
      */
     boolean notFinished() {
-        return !gameTable.getInventions().isEmpty();
+        return !gameTable.getNotFinished().isEmpty();
     }
 
     void removeFinished() {
@@ -97,7 +104,8 @@ public class GameEngine {
     void printRoundStart(int round) {
         StringBuilder start = new StringBuilder();
         start.append("Round " + round + " :");
-        start.append(console1.printHand());
+        for(PlayerConsole console : consoles)
+            start.append(console.printHand());
         start.append(gameTable.printTable());
         LOG.log(INFO, "\nA new Round Start\n{0}", start);
     }
@@ -105,7 +113,8 @@ public class GameEngine {
     void printRoundFinish(int round) {
         StringBuilder finish = new StringBuilder();
         finish.append("Round " + round + " End");
-        finish.append(console1.printHand());
+        for(PlayerConsole console : consoles)
+            finish.append(console.printHand());
         finish.append(gameTable.printTable());
         finish.append("\n" + getScore());
         finish.append("\n\n\n\n#####################\n#####################\n\n");
@@ -113,6 +122,9 @@ public class GameEngine {
     }
 
     void playerAction() {
-        player1.toPlay();
+        for(Robot robot : players)
+            if(notFinished())
+                robot.toPlay();
+            else break;
     }
 }

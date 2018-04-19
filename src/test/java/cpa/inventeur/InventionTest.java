@@ -30,12 +30,18 @@ class InventionTest {
      */
     @Test
     void testAddInventor() {
-        boolean resultS = CAR.addInventor(NEWTON);
-        boolean resultSS = CAR.addInventor(NEWTON);
-        boolean resultF = CAR.addInventor(NEWTON);
-        int expectSize = 2;
+        boolean resultS = CAR.addInventor(WATT);
+        boolean resultSS = CAR.addInventor(EINSTEIN);
+        boolean resultSSS = CAR.addInventor(EINSTEIN);
+        boolean resultSSSS = CAR.addInventor(EINSTEIN);
+        boolean resultSSSSS = CAR.addInventor(EINSTEIN);
+        boolean resultF = CAR.addInventor(HYPPOKRATES);
+        int expectSize = 5;
         assertEquals(SUCCESS, resultS);
         assertEquals(SUCCESS, resultSS);
+        assertEquals(SUCCESS, resultSSS);
+        assertEquals(SUCCESS, resultSSSS);
+        assertEquals(SUCCESS, resultSSSSS);
         assertEquals(FAILED, resultF);
         assertEquals(expectSize, CAR.inventors.size());
     }
@@ -46,14 +52,16 @@ class InventionTest {
      */
     @Test
     void testIsFinished() {
-        Invention invention = CAR;
-        boolean with0inventor = invention.isFinished();
-        invention.addInventor(NEWTON);
-        boolean with1inventor = invention.isFinished();
-        invention.addInventor(NEWTON);
-        boolean with2inventor = invention.isFinished();
-        invention.addInventor(EDISON);
-        boolean with3inventor = invention.isFinished();
+        boolean with0inventor = CAR.isFinished();
+        CAR.addInventor(WATT);
+        boolean with1inventor = CAR.isFinished();
+        CAR.addInventor(EINSTEIN);
+        boolean with2inventor = CAR.isFinished();
+        CAR.addInventor(EINSTEIN);
+        CAR.addInventor(EINSTEIN);
+        CAR.addInventor(EINSTEIN);
+        CAR.addInventor(HYPPOKRATES);
+        boolean with3inventor = CAR.isFinished();
         assertEquals(INPROGRESS, with0inventor);
         assertEquals(INPROGRESS, with1inventor);
         assertEquals(INPROGRESS, with2inventor);

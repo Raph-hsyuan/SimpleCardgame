@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static cpa.inventeur.Inventor.*;
 import static cpa.inventeur.Invention.*;
+import static cpa.inventeur.PlayerColor.*;
 
 class PlayerConsoleTest {
     Table table = Table.getInstance();
@@ -18,60 +19,48 @@ class PlayerConsoleTest {
     
     @BeforeEach
     void initial() {
-        NEWTON.initial();
-        EDISON.initial();
-        CAR.initial();
-        PLANE.initial();
-        BOAT.initial();
-        BIKE.initial();
         table.removeAll();
         table.putInvention(CAR);
         table.putInvention(PLANE);
         table.putInvention(BOAT);
         table.putInvention(BIKE);
-        inventors.add(NEWTON);
-        inventors.add(EDISON);
-        console = new PlayerConsole(inventors);
+        table.initialInventions();
+        console = new PlayerConsole(RED);
+        console.initialInventors();
     }
     
     @Test
-    void testSend() throws RuntimeException {
-        console.send(NEWTON, CAR);
+    void testSend() {
+        console.send(EDISON, CAR);
         assertTrue(!CAR.isFinished());
-        assertTrue(!NEWTON.isFree());        
-        Throwable t = null;
-        try{
-            console.send(NEWTON, CAR);;
-        }catch(Exception ex){
-            t = ex;
-        }
-        assertNotNull(t);
-        assertTrue(t instanceof RuntimeException);
-        assertEquals("Send ERROR!truetruetruefalse",t.getMessage());
-        
+        assertTrue(!EDISON.isFree());        
+        boolean result = console.send(EDISON, CAR);
+        assertEquals(false,result);      
     }
 
     @Test
     void testSetAllFree() {
-        NEWTON.setBusy();
+        EINSTEIN.setBusy();
         EDISON.setBusy();
         console.setAllFree();
-        assertEquals(true,NEWTON.isFree()&&EDISON.isFree());
+        assertEquals(true,EINSTEIN.isFree()&&EDISON.isFree());
     }
 
     @Test
     void testGetInventors() {
+        inventors.add(EDISON);
+        inventors.add(EINSTEIN);
         assertEquals(inventors,console.getInventors());
     }
 
     @Test
     void testGetLibres() {
         console.setAllFree();
-        NEWTON.setBusy();
+        EINSTEIN.setBusy();
         EDISON.setBusy();
         assertTrue(console.getLibres().isEmpty());
         console.setAllFree();
-        NEWTON.setBusy();
+        EINSTEIN.setBusy();
         assertEquals(EDISON,console.getLibres().get(0));
     }
 

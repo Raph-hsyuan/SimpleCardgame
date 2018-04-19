@@ -8,8 +8,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cpa.inventeur.Inventor.*;
 import static cpa.inventeur.Invention.*;
+import static cpa.inventeur.PlayerColor.*;
+
 class RobotSimpleTest {
     Table table = Table.getInstance();
     RobotSimple robot;
@@ -17,24 +18,18 @@ class RobotSimpleTest {
 
     @BeforeEach
     void initial() {
-        NEWTON.initial();
-        EDISON.initial();
         table.removeAll();
-        CAR.initial();
-        PLANE.initial();
-        BOAT.initial();
-        BIKE.initial();
         table.putInvention(CAR);
         table.putInvention(PLANE);
         table.putInvention(BOAT);
         table.putInvention(BIKE);
-        inventors.add(NEWTON);
-        inventors.add(EDISON);
+        table.initialInventions();
     }
 
     @Test
     void testToPlay() {
-        PlayerConsole console = new PlayerConsole(inventors);
+        PlayerConsole console = new PlayerConsole(RED);
+        console.initialInventors();
         robot = new RobotSimple("TESTER1",console);
         robot.closeLogger();
         console.setAllFree();
@@ -52,7 +47,7 @@ class RobotSimpleTest {
         assertEquals(2,console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
-        assertEquals(3,table.getInventions().size());
+        assertEquals(4,table.getInventions().size());
         assertEquals(1,console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
