@@ -19,19 +19,19 @@ public class PlayerConsole {
         this.color = color;
         switch (color) {
         case RED:
-            this.inventors = toInventorList(EDISON, EINSTEIN);
+            this.inventors = toInventorList(CURIE, EDISON, EINSTEIN, TESLA);
             break;
         case YELLOW:
-            this.inventors = toInventorList(NEWTON, GALILEI);
+            this.inventors = toInventorList(PASCAL, BOWLE, NEWTON, GALILEI);
             break;
         case PURPLE:
-            this.inventors = toInventorList(WATT, FRANKLIN);
+            this.inventors = toInventorList(LOVELACE, WATT, LAVOISIER, FRANKLIN);
             break;
         case BLUE:
-            this.inventors = toInventorList(ORESME, FIBONACCI);
+            this.inventors = toInventorList(GUIENBERG, FIBONACCI, ORESME, BINGEN);
             break;
         case GREEN:
-            this.inventors = toInventorList(HYPATIA, HYPPOKRATES);
+            this.inventors = toInventorList(ARISTOTELES, HYPPOKRATES, HYPATIA, ARCHIMEDES);
             break;
         }
     }
@@ -102,10 +102,12 @@ public class PlayerConsole {
         return hand;
     }
 
-    List<Inventor> toInventorList(Inventor inventor1, Inventor inventor2) {
+    List<Inventor> toInventorList(Inventor inventor1, Inventor inventor2, Inventor inventor3, Inventor inventor4) {
         List<Inventor> inventorList = new ArrayList<>();
         inventorList.add(inventor1);
         inventorList.add(inventor2);
+        inventorList.add(inventor3);
+        inventorList.add(inventor4);
         return inventorList;
     }
 

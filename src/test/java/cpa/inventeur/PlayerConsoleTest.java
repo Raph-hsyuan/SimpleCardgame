@@ -48,20 +48,24 @@ class PlayerConsoleTest {
 
     @Test
     void testGetInventors() {
+    	inventors.add(CURIE);
         inventors.add(EDISON);
         inventors.add(EINSTEIN);
+        inventors.add(TESLA);
         assertEquals(inventors,console.getInventors());
     }
 
     @Test
     void testGetLibres() {
         console.setAllFree();
+        CURIE.setBusy();
         EINSTEIN.setBusy();
         EDISON.setBusy();
+        TESLA.setBusy();
         assertTrue(console.getLibres().isEmpty());
         console.setAllFree();
         EINSTEIN.setBusy();
-        assertEquals(EDISON,console.getLibres().get(0));
+        assertEquals(CURIE,console.getLibres().get(0));
     }
 
     @Test

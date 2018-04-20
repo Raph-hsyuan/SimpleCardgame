@@ -36,11 +36,7 @@ class RobotSimpleTest {
         robot.toPlay();
         table.removeFinished();
         assertEquals(4,table.getInventions().size());
-        assertEquals(1,console.getLibres().size());
-        robot.toPlay();
-        table.removeFinished();
-        assertEquals(4,table.getInventions().size());
-        assertEquals(0,console.getLibres().size());
+        assertEquals(3,console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
         assertEquals(4,table.getInventions().size());
@@ -51,13 +47,17 @@ class RobotSimpleTest {
         assertEquals(1,console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
-        assertTrue(console.getLibres().isEmpty());
-        assertEquals(3,table.getInventions().size());
+        assertEquals(4,table.getInventions().size());
         assertEquals(0,console.getLibres().size());
+        robot.toPlay();
+        table.removeFinished();
+        assertTrue(!console.getLibres().isEmpty());
+        assertEquals(4,table.getInventions().size());
+        assertEquals(4,console.getLibres().size());
     }
     
     @AfterEach
     void testGetScore() {
-        assertEquals(1,robot.getScore());
+        assertEquals(0,robot.getScore());
     }
 }

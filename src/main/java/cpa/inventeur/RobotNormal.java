@@ -52,7 +52,6 @@ public class RobotNormal implements Robot {
                     match = 0;
                 }
             }
-            System.out.println(maxmatch);
             if (maxmatch == 0)
                 this.setAllFree();
             else

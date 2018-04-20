@@ -45,7 +45,7 @@ class InventorTest {
         int phy = 1;
         int che = 0;
         int mac = 1;
-        int mat = 1;
+        int mat = 0;
         assertEquals(phy, NEWTON.getSkillValue(PHYSICS));
         assertEquals(che, NEWTON.getSkillValue(CHEMISTRY));
         assertEquals(mac, NEWTON.getSkillValue(MACHINERY));

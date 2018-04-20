@@ -9,11 +9,11 @@ import static cpa.inventeur.Skill.*;
  * @date 2018-4-13
  */
 public enum Inventor {
-    EDISON("edison", 1, 0, 1, 0), EINSTEIN("einstein", 1, 1, 0, 1), //RED
-    NEWTON("newton", 1, 0, 1, 1), GALILEI("galilei", 1, 1, 0, 0), //YELLOW
-    WATT("watt", 0, 1, 2, 0), FRANKLIN("franklin", 1, 0, 1, 1), //PURPLE
-    ORESME("oresme", 1, 0, 0, 1), FIBONACCI("fibonacci", 0, 1, 1, 0),//BLUE
-    HYPATIA("hypatia", 1, 0, 0, 1), HYPPOKRATES("hyppokrates", 0, 2, 1, 0);//GREEN 
+    CURIE("curie", 1, 1, 0, 0), EDISON("edison", 1, 0, 0, 1), EINSTEIN("einstein", 1, 0, 0, 1), TESLA("tesl", 0, 0, 2, 0),//RED
+    PASCAL("pascal", 0, 0, 1, 1), BOWLE("bowle", 0, 2, 0, 0), NEWTON("newton", 1, 0, 1, 0), GALILEI("galilei", 1, 1, 0, 0), //YELLOW
+    LOVELACE("lovelace", 0, 0, 1, 1), WATT("watt", 0, 0, 2, 0), LAVOISIER("lavoisier", 0, 2, 0, 0), FRANKLIN("franklin", 1, 0, 1, 0), //PURPLE
+    GUIENBERG("guienberg", 0, 0, 2, 0), FIBONACCI("fibonacci", 0, 0, 0, 2), ORESME("oresme", 1, 0, 0, 1), BINGEN("bingen", 1, 1, 0, 0),//BLUE
+    ARISTOTELES("aristoteles", 1, 1, 0, 0), HYPPOKRATES("hyppokrates", 0, 2, 0, 0),HYPATIA("hypatia", 1, 0, 0, 1), ARCHIMEDES("archimedes", 1, 0, 1, 0);//GREEN 
     
 
     private final String name;

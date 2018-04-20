@@ -34,7 +34,7 @@ class InventionTest {
         boolean resultSS = CAR.addInventor(EINSTEIN);
         boolean resultSSS = CAR.addInventor(EINSTEIN);
         boolean resultSSSS = CAR.addInventor(EINSTEIN);
-        boolean resultSSSSS = CAR.addInventor(EINSTEIN);
+        boolean resultSSSSS = CAR.addInventor(BOWLE);
         boolean resultF = CAR.addInventor(HYPPOKRATES);
         int expectSize = 5;
         assertEquals(SUCCESS, resultS);
