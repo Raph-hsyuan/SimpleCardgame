@@ -1,6 +1,7 @@
 package cpa.inventeur;
 
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 import static java.util.logging.Level.*;
 
@@ -13,6 +14,8 @@ public class RobotSimple implements Robot {
     private String name;
     private PlayerConsole console;
     private static final Logger LOG = Logger.getLogger("RobotInfo");
+    private static final int TRYTIMES = 10;
+    private Random ran = new Random();
 
     RobotSimple(String name, PlayerConsole console) {
         table = Table.getInstance();
@@ -29,14 +32,18 @@ public class RobotSimple implements Robot {
         if (libre.isEmpty()) {
             setAllFree();
         } else {
-            for (Invention find : table.getNotFinished()) {
-                if(send(libre.get(0), find)) {
-                    mark = find;
+            List<Invention> notFinished = table.getNotFinished();
+            for (int i = 0; i < TRYTIMES; i++) {
+                int thing = ran.nextInt(notFinished.size());
+                int who = ran.nextInt(libre.size());
+                if (send(libre.get(who), notFinished.get(thing))) {
+                    mark = notFinished.get(thing);
                     st = true;
                     break;
-                }     
+                }
             }
-            if(!st)
+
+            if (!st)
                 setAllFree();
             else if (mark.isFinished()) {
                 addPoint();

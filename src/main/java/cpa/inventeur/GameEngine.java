@@ -42,6 +42,7 @@ public class GameEngine {
                 break;
             }
             players.add(player);
+            consoles.add(console);
         }
 
     }
@@ -67,6 +68,7 @@ public class GameEngine {
      */
     void printFinish() {
         LOG.log(INFO, "\n***************\n*GAME FINISHED*\n***************\n{0}", getScore());
+        LOG.log(INFO, "\n{0} is Winner!!", getWinner());
     }
 
     /**
@@ -126,5 +128,26 @@ public class GameEngine {
             if(notFinished())
                 robot.toPlay();
             else break;
+    }
+    
+    void initialGame() {
+        gameTable.initialInventions();
+        for(Inventor inventor:Inventor.values())
+            inventor.initial();
+    }
+    
+    List<Robot> getWinner() {
+        int max = 0;
+        List<Robot> winner = new ArrayList<>();
+        for(Robot p : players){
+            if(max<p.getScore()) {
+                max = p.getScore();
+            }
+        }
+        for(Robot p : players){
+            if(max==p.getScore())
+                winner.add(p);
+        }
+        return winner;
     }
 }

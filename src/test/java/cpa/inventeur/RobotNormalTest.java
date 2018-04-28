@@ -47,17 +47,17 @@ class RobotNormalTest {
         assertEquals(1, console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
-        assertEquals(4, table.getInventions().size());
+        assertEquals(3, table.getInventions().size());
         assertEquals(0, console.getLibres().size());
         robot.toPlay();
         table.removeFinished();
         assertTrue(!console.getLibres().isEmpty());
-        assertEquals(4, table.getInventions().size());
+        assertEquals(3, table.getInventions().size());
         assertEquals(4, console.getLibres().size());
     }
 
     @AfterEach
     void testGetScore() {
-        assertEquals(0, robot.getScore());
+        assertEquals(1, robot.getScore());
     }
 }
