@@ -6,10 +6,8 @@ import static java.util.logging.Level.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Map.Entry;
-
-import static cpa.inventeur.Invention.*;
-
 /**
  * @author HUANG Shenyuan
  * @author WU Kejia
@@ -21,6 +19,7 @@ public class GameEngine {
     private static final Logger LOG = Logger.getLogger("GameInfo");
     private List<Robot> players = new ArrayList<>();
     private List<PlayerConsole> consoles = new ArrayList<>();
+
     GameEngine(Map<String, Level> build) {
         if (build.size() > 5)
             throw new RuntimeException("Max 5 players");
@@ -77,7 +76,7 @@ public class GameEngine {
     StringBuilder getScore() {
         StringBuilder score = new StringBuilder();
         score.append("|PLAYER\t|SCORE\n");
-        for(Robot p : players)
+        for (Robot p : players)
             score.append("\n|" + p + "\t|" + p.getScore());
         return score;
     }
@@ -86,10 +85,18 @@ public class GameEngine {
      * Put All Inventions on table
      */
     void putInventions() {
-        gameTable.putInvention(CAR);
-        gameTable.putInvention(PLANE);
-        gameTable.putInvention(BOAT);
-        gameTable.putInvention(BIKE);
+        int num = players.size() + 3;
+        Random ran = new Random();
+        List<Invention> inv = new ArrayList<>();
+        for(Invention find : Invention.values())
+            if(find.ordinal()>4)
+                inv.add(find);
+        while(num>0) {
+            int mark = ran.nextInt(num);
+            gameTable.putInvention(inv.get(mark));
+            inv.remove(mark);
+            num--;
+        }
     }
 
     /**
@@ -106,7 +113,7 @@ public class GameEngine {
     void printRoundStart(int round) {
         StringBuilder start = new StringBuilder();
         start.append("Round " + round + " :");
-        for(PlayerConsole console : consoles)
+        for (PlayerConsole console : consoles)
             start.append(console.printHand());
         start.append(gameTable.printTable());
         LOG.log(INFO, "\nA new Round Start\n{0}", start);
@@ -115,7 +122,7 @@ public class GameEngine {
     void printRoundFinish(int round) {
         StringBuilder finish = new StringBuilder();
         finish.append("Round " + round + " End");
-        for(PlayerConsole console : consoles)
+        for (PlayerConsole console : consoles)
             finish.append(console.printHand());
         finish.append(gameTable.printTable());
         finish.append("\n" + getScore());
@@ -124,28 +131,29 @@ public class GameEngine {
     }
 
     void playerAction() {
-        for(Robot robot : players)
-            if(notFinished())
+        for (Robot robot : players)
+            if (notFinished())
                 robot.toPlay();
-            else break;
+            else
+                break;
     }
-    
+
     void initialGame() {
         gameTable.initialInventions();
-        for(Inventor inventor:Inventor.values())
+        for (Inventor inventor : Inventor.values())
             inventor.initial();
     }
-    
+
     List<Robot> getWinner() {
         int max = 0;
         List<Robot> winner = new ArrayList<>();
-        for(Robot p : players){
-            if(max<p.getScore()) {
+        for (Robot p : players) {
+            if (max < p.getScore()) {
                 max = p.getScore();
             }
         }
-        for(Robot p : players){
-            if(max==p.getScore())
+        for (Robot p : players) {
+            if (max == p.getScore())
                 winner.add(p);
         }
         return winner;

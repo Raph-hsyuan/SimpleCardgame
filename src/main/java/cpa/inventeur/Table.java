@@ -11,7 +11,7 @@ import java.util.List;
 public class Table {
 
     private static Table instance;
-    private static final int SIZEOFTABLE = 4;
+    private static final int SIZEOFTABLE = 8;
     private static final boolean SUCCESS = true;
     private static final boolean FAILED = false;
     private List<Invention> inventions;

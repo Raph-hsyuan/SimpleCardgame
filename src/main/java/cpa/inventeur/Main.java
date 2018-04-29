@@ -11,7 +11,7 @@ public class Main {
     private static final Logger LOG1 = Logger.getLogger("GameInfo");
     private static final Logger LOG2 = Logger.getLogger("RobotInfo");
     private static final Logger LOG3 = Logger.getLogger("CountInfo");
-    private static final int SAMPLESIZE = 1000;
+    private static final int SAMPLESIZE = 10000;
     static Random s = new Random();
     public static void main(String[] args) {
         Map<String, Level> builder = new HashMap<>();
@@ -29,13 +29,13 @@ public class Main {
         LOG1.setLevel(OFF);
         LOG2.setLevel(OFF);
         int winTimes1 = winTimes(1);
-        int winTimes2 = winTimes(2);
-        int winTimes3 = winTimes(3);
-        int winTimes4 = winTimes(4);
         LOG3.log(INFO, "WinRate of 1 Normal vs 1 Simple is {0}%", winTimes1*100.0/SAMPLESIZE);
+        int winTimes2 = winTimes(2);
         LOG3.log(INFO, "WinRate of 1 Normal vs 2 Simple is {0}%", winTimes2*100.0/SAMPLESIZE);
+        int winTimes3 = winTimes(3);
         LOG3.log(INFO, "WinRate of 1 Normal vs 3 Simple is {0}%", winTimes3*100.0/SAMPLESIZE);
-        LOG3.log(INFO, "WinRate of 1 Normal vs 4 Simple is {0}%", winTimes4*100.0/SAMPLESIZE);
+        int winTimes4 = winTimes(4);
+        LOG3.log(INFO, "WinRate of 1 Normal vs 4 Simple is {0}%\n\n\nFINISH", winTimes4*100.0/SAMPLESIZE);
             
     }
 

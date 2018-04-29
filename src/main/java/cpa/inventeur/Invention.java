@@ -15,7 +15,16 @@ import java.util.List;
  * @date 2018-4-13
  */
 public enum Invention {
-    CAR(" CAR  ", 3, 1, 2, 2), PLANE("PLANE ", 2, 4, 1, 3), BOAT(" BOAT ", 3, 3, 3, 0), BIKE(" BIKE ", 1, 0, 2, 2);
+    /**
+     * FOR TEST
+     */
+    CAR("  CAR  ", 3, 1, 2, 2), PLANE(" PLANE ", 2, 4, 1, 3), BOAT(" BOAT  ", 3, 3, 3, 0), BIKE("  BIKE ", 1, 0, 2,2), 
+    /**
+     * USED IN GAME
+     */
+    ARROW(" ARROW ", 1, 0, 2, 2), STONEZAX("STONEZAX", 2, 0, 2, 1), VESSEL(" VESSEL", 2, 0, 1, 2), CHARIOT("CHARIOT", 1, 0, 3,1), 
+    SMOKE(" SMOKE ", 1, 3, 0, 1), TOWER(" TOWER ", 2, 0, 2, 1), FRESCO(" FRESCO ", 1, 3, 0,1), PAPER("  PAPER ", 0, 3, 1, 1), 
+    SUNDIAL("SUNDIAL ", 1, 0, 1, 3), WATERCLOCK("WATERCLK",0, 2, 1, 2), FIRE("  FIRE ", 3, 1, 1, 0), OILLAMP(" OILLAMP", 1, 3, 1, 0);
 
     private static final boolean FINISHED = true;
     private static final boolean INPROGRESS = false;
@@ -48,7 +57,8 @@ public enum Invention {
                 demande.replace(key, needs, residualDemande(has, needs));
                 flag = SUCCESS;
             }
-            if (entry.getValue() > 0) st = INPROGRESS;
+            if (entry.getValue() > 0)
+                st = INPROGRESS;
         }
         if (flag)
             inventors.add(inventor);
@@ -69,12 +79,12 @@ public enum Invention {
 
     public String toCard() {
         StringBuilder invention = new StringBuilder();
-        invention.append("\n\t|--------------|\n\t|===>" + name + "<===|\n");
+        invention.append("\n\t|---------------|\n\t|===>" + name + "<===|\n");
         if (this.isFinished())
-            invention.append("\t|-IS FINISHED -|\n");
+            invention.append("\t|- IS FINISHED -|\n");
         else
-            invention.append("\t|-IN PROGRESS -|\n");
-        invention.append("\t|--------------|\n");
+            invention.append("\t|- IN PROGRESS -|\n");
+        invention.append("\t|---------------|\n");
         for (Skill skill : demande.keySet()) {
             invention.append("\t|-" + skill + toStars(skill) + "\n");
         }
