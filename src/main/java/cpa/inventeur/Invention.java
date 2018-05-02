@@ -119,9 +119,8 @@ public enum Invention {
         for (int i = 0; i < max; i++) {
             if (num > 0)
                 stars.append("¡ï");
-            else if (iniNum > 0)
+            else
                 stars.append("¡î");
-            iniNum--;
             num--;
         }
         return stars.toString();

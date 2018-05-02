@@ -49,11 +49,8 @@ public class PlayerConsole {
         boolean con3 = !invention.isFinished();
         boolean con4 = inventor.isFree();
         if (con1 && con2 && con3 && con4 && canDoSth) {
-            try{
-                invention.addInventor(inventor);
-            }catch(RuntimeException e){
-                return false;
-            }
+            if(!invention.addInventor(inventor))
+                return false; 
             inventor.setBusy();
             canDoSth = false;
             return true;

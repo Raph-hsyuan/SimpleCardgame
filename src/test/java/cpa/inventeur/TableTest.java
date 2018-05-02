@@ -2,6 +2,8 @@ package cpa.inventeur;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static cpa.inventeur.Invention.*;
@@ -76,6 +78,37 @@ class TableTest {
         table.removeFinished();
         assertEquals(1,table.getInventions().size());
         table.removeAll();
+    }
+
+    @Test
+    void testGetNotFinished() {
+        Invention invention1 = CAR;
+        Invention invention2 = PLANE;
+        Invention invention3 = BOAT;
+        table.putInvention(invention1);
+        table.putInvention(invention2);
+        table.putInvention(invention3);
+        CAR.setFinished();
+        BOAT.setFinished();
+        List<Invention> nf = table.getNotFinished();
+        assertEquals(nf.get(0),PLANE);
+    }
+    
+    @Test
+    void testInitial() {
+        Invention invention1 = CAR;
+        Invention invention2 = PLANE;
+        Invention invention3 = BOAT;
+        table.putInvention(invention1);
+        table.putInvention(invention2);
+        table.putInvention(invention3);
+        CAR.setFinished();
+        BOAT.setFinished();
+        PLANE.addInventor(Inventor.NEWTON);
+        table.initialInventions();
+        assertEquals(3,table.getNotFinished().size());
+        assertEquals(2,PLANE.getDemandeValue(Skill.PHYSICS));
+        
     }
     
     

@@ -15,7 +15,11 @@ class PlayerConsoleTest {
     Table table = Table.getInstance();
     RobotSimple robot;
     List<Inventor> inventors = new ArrayList<>();
-    PlayerConsole console;    
+    PlayerConsole consoleR;    
+    PlayerConsole consoleY;  
+    PlayerConsole consoleP;  
+    PlayerConsole consoleB;  
+    PlayerConsole consoleG;  
     
     @BeforeEach
     void initial() {
@@ -25,25 +29,63 @@ class PlayerConsoleTest {
         table.putInvention(BOAT);
         table.putInvention(BIKE);
         table.initialInventions();
-        console = new PlayerConsole(RED);
-        console.initialInventors();
+        consoleR = new PlayerConsole(RED);
+        consoleY = new PlayerConsole(YELLOW);
+        consoleP = new PlayerConsole(PURPLE);
+        consoleB = new PlayerConsole(BLUE);
+        consoleG = new PlayerConsole(GREEN);
+        consoleR.initialInventors();
     }
-    
+   
     @Test
     void testSend() {
-        console.send(EDISON, CAR);
+        CAR.initial();
+        consoleR.send(EDISON, CAR);
         assertTrue(!CAR.isFinished());
         assertTrue(!EDISON.isFree());        
-        boolean result = console.send(EDISON, CAR);
-        assertEquals(false,result);      
+        boolean result1 = consoleR.send(EDISON, CAR);
+        consoleR.setNewTurn();   
+        EDISON.setFree();
+        boolean result2 = consoleR.send(EDISON, CAR);
+        EDISON.setFree();
+        boolean result10 = consoleR.send(EDISON, CAR);
+        consoleR.setNewTurn();
+        boolean result3 = consoleR.send(EDISON, CAR);
+        consoleR.setNewTurn();
+        boolean result4 = consoleR.send(WATT, CAR);
+        boolean result5 = consoleP.send(WATT, CAR);
+        consoleP.setNewTurn();
+        boolean result7 = consoleP.send(LOVELACE, CAR);
+        consoleP.setNewTurn();
+        boolean result6 = consoleP.send(LAVOISIER, CAR);
+        consoleR.setNewTurn();
+        LAVOISIER.setFree();
+        boolean result8 = consoleP.send(LAVOISIER, CAR);
+        consoleP.setNewTurn();
+        LAVOISIER.setBusy();
+        boolean result9 = consoleP.send(LAVOISIER, TOWER);
+        consoleP.setNewTurn(); 
+        
+        assertEquals(false,result1);
+        assertEquals(true,result2); 
+        assertEquals(true,result3);
+        assertEquals(false,result4);
+        assertEquals(true,result5); 
+        assertEquals(true,result6); 
+        assertEquals(false,result7);
+        assertEquals(false,result8);
+        assertEquals(false,result9); 
+        assertEquals(false,result10); 
     }
 
     @Test
     void testSetAllFree() {
         EINSTEIN.setBusy();
         EDISON.setBusy();
-        console.setAllFree();
+        consoleR.setAllFree();
         assertEquals(true,EINSTEIN.isFree()&&EDISON.isFree());
+        assertEquals(false,consoleR.setAllFree());
+        consoleR.setNewTurn();
     }
 
     @Test
@@ -52,28 +94,28 @@ class PlayerConsoleTest {
         inventors.add(EDISON);
         inventors.add(EINSTEIN);
         inventors.add(TESLA);
-        assertEquals(inventors,console.getInventors());
+        assertEquals(inventors,consoleR.getInventors());
     }
 
     @Test
     void testGetLibres() {
-        console.setNewTurn();
-        console.setAllFree();
+        consoleR.setNewTurn();
+        consoleR.setAllFree();
         CURIE.setBusy();
         EINSTEIN.setBusy();
         EDISON.setBusy();
         TESLA.setBusy();
-        assertTrue(console.getLibres().isEmpty());
-        console.setNewTurn();
-        console.setAllFree();
+        assertTrue(consoleR.getLibres().isEmpty());
+        consoleR.setNewTurn();
+        consoleR.setAllFree();
         EINSTEIN.setBusy();
-        assertEquals(CURIE,console.getLibres().get(0));
+        assertEquals(CURIE,consoleR.getLibres().get(0));
     }
 
     @Test
     void testAddPoint() {
-        console.addPoint();
-        assertEquals(1,console.getScore());
+        consoleR.addPoint();
+        assertEquals(1,consoleR.getScore());
     }
 
 }
