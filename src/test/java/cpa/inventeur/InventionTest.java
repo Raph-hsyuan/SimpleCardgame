@@ -67,5 +67,26 @@ class InventionTest {
         assertEquals(INPROGRESS, with2inventor);
         assertEquals(FINISHED, with3inventor);
     }
+    
+    @Test
+    void testToStars() {
+        String starCARnull = CAR.toStars(Skill.PHYSICS);
+        String expect = new String("¡î¡î¡î");
+        assertEquals(expect, starCARnull);
+        CAR.addInventor(NEWTON);
+        CAR.addInventor(NEWTON);
+        String starCARnew1 = CAR.toStars(Skill.PHYSICS);
+        expect = new String("¡ï¡ï¡î");
+        assertEquals(expect, starCARnew1);
+        CAR.addInventor(NEWTON);
+        String starCARnew2 = CAR.toStars(Skill.PHYSICS);
+        expect = new String("¡ï¡ï¡ï");
+        assertEquals(expect, starCARnew2);
+    }
 
+    @Test
+    void testSetFinished() {
+        CAR.setFinished();
+        assertEquals(true,CAR.isFinished());
+    }
 }

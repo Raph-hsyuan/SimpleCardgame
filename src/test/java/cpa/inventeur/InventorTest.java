@@ -51,5 +51,12 @@ class InventorTest {
         assertEquals(mac, NEWTON.getSkillValue(MACHINERY));
         assertEquals(mat, NEWTON.getSkillValue(MATHS));
     }
+    
+    @Test
+    void testToStar() {
+        String starNewton = NEWTON.toStars(PHYSICS);
+        String expect = new String("бя");
+        assertEquals(expect,starNewton);
+    }
 
 }
