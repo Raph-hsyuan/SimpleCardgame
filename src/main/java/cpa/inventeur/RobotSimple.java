@@ -63,10 +63,13 @@ public class RobotSimple implements Robot {
     }
 
     private boolean send(Inventor inventor, Invention invention) {
-        StringBuilder done = new StringBuilder();
-        done.append("# " + this + " sends " + inventor + "---->" + invention);
-        LOG.log(INFO, "\nRobotInfo:\n{0}\n\n", done);
-        return console.send(inventor, invention);
+        if(console.send(inventor, invention)) {
+            StringBuilder done = new StringBuilder();
+            done.append("# " + this + " sends " + inventor + "---->" + invention);
+            LOG.log(INFO, "\nRobotInfo:\n{0}\n\n", done);
+            return true;
+        }
+        return false;
     }
 
     private void addPoint() {
