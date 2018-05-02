@@ -57,12 +57,14 @@ class PlayerConsoleTest {
 
     @Test
     void testGetLibres() {
+        console.setNewTurn();
         console.setAllFree();
         CURIE.setBusy();
         EINSTEIN.setBusy();
         EDISON.setBusy();
         TESLA.setBusy();
         assertTrue(console.getLibres().isEmpty());
+        console.setNewTurn();
         console.setAllFree();
         EINSTEIN.setBusy();
         assertEquals(CURIE,console.getLibres().get(0));

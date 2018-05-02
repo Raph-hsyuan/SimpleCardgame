@@ -14,6 +14,7 @@ public class PlayerConsole {
     private Table table = Table.getInstance();
     private int score = 0;
     PlayerColor color;
+    private boolean canDoSth = true;
 
     PlayerConsole(PlayerColor color) {
         this.color = color;
@@ -47,13 +48,14 @@ public class PlayerConsole {
         boolean con2 = inventions.contains(invention);
         boolean con3 = !invention.isFinished();
         boolean con4 = inventor.isFree();
-        if (con1 && con2 && con3 && con4 ) {
+        if (con1 && con2 && con3 && con4 && canDoSth) {
             try{
                 invention.addInventor(inventor);
             }catch(RuntimeException e){
                 return false;
             }
             inventor.setBusy();
+            canDoSth = false;
             return true;
         }
         else
@@ -63,9 +65,14 @@ public class PlayerConsole {
     /**
      * Set ones' all inventors free
      */
-    void setAllFree() {
-        for (Inventor find : inventors)
-            find.setFree();
+    boolean setAllFree() {
+        if (canDoSth) {
+            for (Inventor find : inventors)
+                find.setFree();
+            canDoSth = false;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -114,5 +121,9 @@ public class PlayerConsole {
     void initialInventors() {
         for (Inventor inventor : inventors)
             inventor.initial();
+    }
+    
+    void setNewTurn() {
+        canDoSth = true;
     }
 }

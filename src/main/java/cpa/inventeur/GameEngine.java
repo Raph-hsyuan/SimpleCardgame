@@ -58,6 +58,8 @@ public class GameEngine {
             printRoundFinish(round);
             removeFinished();
             round++;
+            setNewTurn();
+            
         }
         printFinish();
     }
@@ -157,5 +159,10 @@ public class GameEngine {
                 winner.add(p);
         }
         return winner;
+    }
+    
+    void setNewTurn() {
+        for(PlayerConsole console : consoles)
+            console.setNewTurn();
     }
 }
