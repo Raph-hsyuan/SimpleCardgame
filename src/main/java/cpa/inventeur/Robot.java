@@ -10,4 +10,6 @@ public interface Robot {
     int getScore();
     
     void closeLogger();
+
+    PlayerColor getColor();
 }

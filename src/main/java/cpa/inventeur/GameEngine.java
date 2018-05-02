@@ -79,7 +79,7 @@ public class GameEngine {
         StringBuilder score = new StringBuilder();
         score.append("|PLAYER\t|SCORE\n");
         for (Robot p : players)
-            score.append("\n|" + p + "\t|" + p.getScore());
+            score.append("\n|" + p + "\t|"+ p.getColor() + "\t|" + p.getScore());
         return score;
     }
 

@@ -33,11 +33,6 @@ public class RobotNormal implements Robot {
             Invention bestInvention = table.getNotFinished().get(0);
             for (Invention invention : table.getNotFinished()) {
                 for (Inventor inventor : console.getLibres()) {
-                    if (toFinish(inventor, invention)) {
-                        bestInventor = inventor;
-                        bestInvention = invention;
-                        break;
-                    }
                     for (Skill skill : Skill.values()) {
                         int demande = invention.getDemandeValue(skill);
                         int has = inventor.getSkillValue(skill);
@@ -54,8 +49,15 @@ public class RobotNormal implements Robot {
             }
             if (maxmatch == 0)
                 this.setAllFree();
-            else
+            else {
+                for (Invention invention : table.getNotFinished())
+                    for (Inventor inventor : console.getLibres())
+                        if (toFinish(inventor, invention)) {
+                            bestInventor = inventor;
+                            bestInvention = invention;
+                        }
                 send(bestInventor, bestInvention); // send an inventor
+            }
             if (bestInvention.isFinished()) { // if the invention is finished
                 addPoint();
             }
@@ -99,7 +101,7 @@ public class RobotNormal implements Robot {
         for (Skill skill : Skill.values()) {
             int demand = invention.getDemandeValue(skill);
             int has = inventor.getSkillValue(skill);
-            flag &= (demand > 0) && (has >= demand);
+            flag &= has >= demand;
         }
         return flag;
     }
@@ -107,5 +109,10 @@ public class RobotNormal implements Robot {
     @Override
     public void closeLogger() {
         LOG.setLevel(OFF);
+    }
+
+    @Override
+    public PlayerColor getColor() {
+        return console.color;
     }
 }

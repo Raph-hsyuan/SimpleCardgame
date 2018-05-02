@@ -83,5 +83,10 @@ public class RobotSimple implements Robot {
     public void closeLogger() {
         LOG.setLevel(OFF);
     }
+    
+    @Override
+    public PlayerColor getColor() {
+        return console.color;
+    }
 
 }
