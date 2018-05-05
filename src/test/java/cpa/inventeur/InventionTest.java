@@ -71,16 +71,16 @@ class InventionTest {
     @Test
     void testToStars() {
         String starCARnull = CAR.toStars(Skill.PHYSICS);
-        String expect = new String("¡î¡î¡î");
+        String expect = new String("â˜†â˜†â˜†");
         assertEquals(expect, starCARnull);
         CAR.addInventor(NEWTON);
         CAR.addInventor(NEWTON);
         String starCARnew1 = CAR.toStars(Skill.PHYSICS);
-        expect = new String("¡ï¡ï¡î");
+        expect = new String("â˜…â˜…â˜†");
         assertEquals(expect, starCARnew1);
         CAR.addInventor(NEWTON);
         String starCARnew2 = CAR.toStars(Skill.PHYSICS);
-        expect = new String("¡ï¡ï¡ï");
+        expect = new String("â˜…â˜…â˜…");
         assertEquals(expect, starCARnew2);
     }
 

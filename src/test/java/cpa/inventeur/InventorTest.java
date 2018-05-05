@@ -55,7 +55,7 @@ class InventorTest {
     @Test
     void testToStar() {
         String starNewton = NEWTON.toStars(PHYSICS);
-        String expect = new String("¡ï");
+        String expect = new String("â˜…");
         assertEquals(expect,starNewton);
     }
 

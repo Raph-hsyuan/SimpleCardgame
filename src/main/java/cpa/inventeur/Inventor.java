@@ -78,7 +78,7 @@ public enum Inventor {
         StringBuilder stars = new StringBuilder();
         int num = this.getSkillValue(skill);
         for (int i = 0; i < num; i++)
-            stars.append("¡ï");
+            stars.append("â˜…");
         return stars.toString();
     }
 }
