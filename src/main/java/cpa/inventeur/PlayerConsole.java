@@ -2,7 +2,9 @@ package cpa.inventeur;
 
 import static cpa.inventeur.Inventor.*;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * @author HUANG Shenyuan
@@ -15,8 +17,11 @@ public class PlayerConsole {
     private int score = 0;
     PlayerColor color;
     private boolean canDoSth = true;
+    private EnumMap<Ticket, Integer> tickets = new EnumMap<>(Ticket.class);
 
     PlayerConsole(PlayerColor color) {
+        for (Ticket t : Ticket.values())
+            tickets.put(t, 0);
         this.color = color;
         switch (color) {
         case RED:
@@ -49,13 +54,12 @@ public class PlayerConsole {
         boolean con3 = !invention.isFinished();
         boolean con4 = inventor.isFree();
         if (con1 && con2 && con3 && con4 && canDoSth) {
-            if(!invention.addInventor(inventor))
-                return false; 
+            if (!invention.addInventor(inventor))
+                return false;
             inventor.setBusy();
             canDoSth = false;
             return true;
-        }
-        else
+        } else
             return false;
     }
 
@@ -119,8 +123,35 @@ public class PlayerConsole {
         for (Inventor inventor : inventors)
             inventor.initial();
     }
-    
+
     void setNewTurn() {
         canDoSth = true;
+    }
+
+    boolean useTicket(Ticket ticket) {
+        if (tickets.get(ticket) <= 0)
+            return false;
+        switch (ticket) {
+        case ADDONEPOINT:
+            this.addPoint();
+            break;
+        case SETALLFREE:
+            this.setAllFree();
+            break;
+        }
+        tickets.put(ticket, tickets.get(ticket) - 1);
+        return true;
+    }
+
+    void addTicket(Ticket ticket) {
+        tickets.put(ticket, tickets.get(ticket) + 1);
+    }
+
+    List<Ticket> hasTicket() {
+        List<Ticket> hasTicket = new ArrayList<>();
+        for (Entry<Ticket, Integer> t : tickets.entrySet())
+            for (int i = 0; i < t.getValue(); i++)
+                hasTicket.add(t.getKey());
+        return hasTicket;
     }
 }

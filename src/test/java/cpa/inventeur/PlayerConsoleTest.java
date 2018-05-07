@@ -117,5 +117,29 @@ class PlayerConsoleTest {
         consoleR.addPoint();
         assertEquals(1,consoleR.getScore());
     }
+    
+    @Test 
+    void testAddTicket(){
+        consoleR.addTicket(Ticket.ADDONEPOINT);
+        assertTrue(consoleR.useTicket(Ticket.ADDONEPOINT));
+        assertFalse(consoleR.useTicket(Ticket.ADDONEPOINT));
+        consoleR.addTicket(Ticket.SETALLFREE);
+        assertTrue(consoleR.useTicket(Ticket.SETALLFREE));
+    }
+    
+    @Test
+    void testHasTicket() {
+        consoleR.addTicket(Ticket.ADDONEPOINT);
+        consoleR.addTicket(Ticket.ADDONEPOINT);
+        consoleR.addTicket(Ticket.SETALLFREE);
+        assertTrue(consoleR.hasTicket().contains(Ticket.ADDONEPOINT));
+        assertTrue(consoleR.hasTicket().contains(Ticket.SETALLFREE));
+        assertTrue(consoleR.useTicket(Ticket.ADDONEPOINT));
+        assertTrue(consoleR.hasTicket().contains(Ticket.ADDONEPOINT));
+        assertTrue(consoleR.useTicket(Ticket.ADDONEPOINT));
+        assertFalse(consoleR.hasTicket().contains(Ticket.ADDONEPOINT));  
+        assertTrue(consoleR.hasTicket().contains(Ticket.SETALLFREE)); 
+        
+    }
 
 }
