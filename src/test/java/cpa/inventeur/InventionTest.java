@@ -32,8 +32,8 @@ class InventionTest {
     void testAddInventor() {
         boolean resultS = CAR.addInventor(WATT);
         boolean resultSS = CAR.addInventor(EINSTEIN);
-        boolean resultSSS = CAR.addInventor(EINSTEIN);
-        boolean resultSSSS = CAR.addInventor(EINSTEIN);
+        boolean resultSSS = CAR.addInventor(EDISON);
+        boolean resultSSSS = CAR.addInventor(HYPATIA);
         boolean resultSSSSS = CAR.addInventor(BOWLE);
         boolean resultF = CAR.addInventor(HYPPOKRATES);
         int expectSize = 5;

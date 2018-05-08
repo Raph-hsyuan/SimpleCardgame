@@ -4,10 +4,13 @@ import java.util.logging.Logger;
 import static java.util.logging.Level.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Map.Entry;
+
 /**
  * @author HUANG Shenyuan
  * @author WU Kejia
@@ -19,10 +22,11 @@ public class GameEngine {
     private static final Logger LOG = Logger.getLogger("GameInfo");
     private List<Robot> players = new ArrayList<>();
     private List<PlayerConsole> consoles = new ArrayList<>();
+    private Map<PlayerColor, Integer> scoreBoard = new EnumMap<>(PlayerColor.class);
 
     GameEngine(Map<String, Level> build) {
         if (build.size() > 5)
-            throw new RuntimeException("Max 5 players");
+            throw new IllegalStateException("Max 5 players");
         PlayerColor[] colors = PlayerColor.values();
         int i = 0;
         for (Entry<String, Level> entry : build.entrySet()) {
@@ -42,8 +46,10 @@ public class GameEngine {
             }
             players.add(player);
             consoles.add(console);
+            for (PlayerConsole con : consoles) {
+                scoreBoard.put(con.color, 0);
+            }
         }
-
     }
 
     /**
@@ -51,6 +57,7 @@ public class GameEngine {
      */
     void gameStart() {
         putInventions();
+        addTickets();
         int round = 1;
         while (notFinished()) {
             printRoundStart(round);
@@ -59,7 +66,7 @@ public class GameEngine {
             removeFinished();
             round++;
             setNewTurn();
-            
+
         }
         printFinish();
     }
@@ -79,7 +86,7 @@ public class GameEngine {
         StringBuilder score = new StringBuilder();
         score.append("|PLAYER\t|SCORE\n");
         for (Robot p : players)
-            score.append("\n|" + p + "\t|"+ p.getColor() + "\t|" + p.getScore());
+            score.append("\n|" + p + "\t|" + p.getColor() + "\t|" + scoreBoard.get(p.getColor()));
         return score;
     }
 
@@ -90,10 +97,10 @@ public class GameEngine {
         int num = players.size() + 3;
         Random ran = new Random();
         List<Invention> inv = new ArrayList<>();
-        for(Invention find : Invention.values())
-            if(find.ordinal()>4)
+        for (Invention find : Invention.values())
+            if (find.ordinal() > 4)
                 inv.add(find);
-        while(num>0) {
+        while (num > 0) {
             int mark = ran.nextInt(num);
             gameTable.putInvention(inv.get(mark));
             inv.remove(mark);
@@ -133,36 +140,82 @@ public class GameEngine {
     }
 
     void playerAction() {
-        for (Robot robot : players)
+        for (Robot robot : players) {
+            PlayerColor color = robot.getColor();
+            PlayerConsole console = robot.getConsole();
             if (notFinished())
                 robot.toPlay();
             else
                 break;
+            int add =  console.getAddPoint();
+            updateScore(color,add);
+            if(console.finishSth())
+                chooseTicket(console.getiFinish());
+        }
     }
 
+    private void chooseTicket(Invention inv) {
+        int numOfTicket = inv.getTicket().size();
+        List<PlayerColor> rank = new ArrayList<>();
+        for(PlayerColor co : inv.inventors.keySet())
+            rank.add(co);
+        for(int i = 0; i<rank.size()-1; i++) 
+            for(int j = 0; j<rank.size()-1-i; j++) {
+                if(inv.getContribute(rank.get(j))<inv.getContribute(rank.get(j+1)))
+                    Collections.swap(rank, j, j+1);
+            }
+        for(PlayerColor co : rank)
+            if(numOfTicket>0)
+                getRobot(co).chooseTicket(inv);
+            else
+                break;
+            
+    }
+    
+    private void updateScore(PlayerColor color, int add) {
+        int score = scoreBoard.get(color);
+        scoreBoard.replace(color, score+add);
+    }
+    
     void initialGame() {
         gameTable.initialInventions();
         for (Inventor inventor : Inventor.values())
             inventor.initial();
     }
 
-    List<Robot> getWinner() {
+    List<PlayerColor> getWinner() {
         int max = 0;
-        List<Robot> winner = new ArrayList<>();
-        for (Robot p : players) {
-            if (max < p.getScore()) {
-                max = p.getScore();
+        List<PlayerColor> winner = new ArrayList<>();
+        for (Integer i : scoreBoard.values()) {
+            if (max < i) {
+                max = i;
             }
         }
-        for (Robot p : players) {
-            if (max == p.getScore())
-                winner.add(p);
+        for (Entry<PlayerColor, Integer> entry : scoreBoard.entrySet()) {
+            if (max == entry.getValue())
+                winner.add(entry.getKey());
         }
         return winner;
     }
-    
-    void setNewTurn() {
-        for(PlayerConsole console : consoles)
+
+    private void setNewTurn() {
+        for (PlayerConsole console : consoles)
             console.setNewTurn();
+    }
+
+    private void addTickets() {
+        Random ran = new Random();
+        for (Invention inv : gameTable.getInventions()) {
+            for (Ticket tic : Ticket.values())
+                if (ran.nextBoolean())
+                    inv.addTicket(tic);
+        }
+    }
+
+    Robot getRobot(PlayerColor color) {
+        for (Robot rob : players)
+            if (rob.getColor().equals(color))
+                return rob;
+        throw new IllegalStateException("this Color not exist");
     }
 }

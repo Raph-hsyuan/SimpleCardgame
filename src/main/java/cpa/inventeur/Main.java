@@ -51,8 +51,8 @@ public class Main {
         GameEngine mygame = new GameEngine(normal1VsSimple(simple));
         mygame.initialGame();
         mygame.gameStart();
-        for(Robot find : mygame.getWinner()) {
-            if(find instanceof RobotNormal)
+        for(PlayerColor find : mygame.getWinner()) {
+            if( mygame.getRobot(find) instanceof RobotNormal)
                 return true;
         }
         return false;

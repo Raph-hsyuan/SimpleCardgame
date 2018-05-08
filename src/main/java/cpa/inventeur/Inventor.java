@@ -2,6 +2,7 @@ package cpa.inventeur;
 
 import java.util.EnumMap;
 import static cpa.inventeur.Skill.*;
+import static cpa.inventeur.PlayerColor.*;
 
 /**
  * @author HUANG Shenyuan
@@ -9,11 +10,11 @@ import static cpa.inventeur.Skill.*;
  * @date 2018-4-13
  */
 public enum Inventor {
-    CURIE("curie", 1, 1, 0, 0), EDISON("edison", 1, 0, 0, 1), EINSTEIN("einstein", 1, 0, 0, 1), TESLA("tesl", 0, 0, 2, 0),//RED
-    PASCAL("pascal", 0, 0, 1, 1), BOWLE("bowle", 0, 2, 0, 0), NEWTON("newton", 1, 0, 1, 0), GALILEI("galilei", 1, 1, 0, 0), //YELLOW
-    LOVELACE("lovelace", 0, 0, 1, 1), WATT("watt", 0, 0, 2, 0), LAVOISIER("lavoisier", 0, 2, 0, 0), FRANKLIN("franklin", 1, 0, 1, 0), //PURPLE
-    GUIENBERG("guienberg", 0, 0, 2, 0), FIBONACCI("fibonacci", 0, 0, 0, 2), ORESME("oresme", 1, 0, 0, 1), BINGEN("bingen", 1, 1, 0, 0),//BLUE
-    ARISTOTELES("aristoteles", 1, 1, 0, 0), HYPPOKRATES("hyppokrates", 0, 2, 0, 0),HYPATIA("hypatia", 1, 0, 0, 1), ARCHIMEDES("archimedes", 1, 0, 1, 0);//GREEN 
+    CURIE("curie",RED, 1, 1, 0, 0), EDISON("edison",RED, 1, 0, 0, 1), EINSTEIN("einstein",RED, 1, 0, 0, 1), TESLA("tesl",RED, 0, 0, 2, 0),//RED
+    PASCAL("pascal",YELLOW, 0, 0, 1, 1), BOWLE("bowle",YELLOW, 0, 2, 0, 0), NEWTON("newton",YELLOW, 1, 0, 1, 0), GALILEI("galilei",YELLOW, 1, 1, 0, 0), //YELLOW
+    LOVELACE("lovelace",PURPLE, 0, 0, 1, 1), WATT("watt",PURPLE, 0, 0, 2, 0), LAVOISIER("lavoisier",PURPLE, 0, 2, 0, 0), FRANKLIN("franklin",PURPLE, 1, 0, 1, 0), //PURPLE
+    GUIENBERG("guienberg",BLUE, 0, 0, 2, 0), FIBONACCI("fibonacci",BLUE, 0, 0, 0, 2), ORESME("oresme",BLUE, 1, 0, 0, 1), BINGEN("bingen",BLUE, 1, 1, 0, 0),//BLUE
+    ARISTOTELES("aristoteles",GREEN, 1, 1, 0, 0), HYPPOKRATES("hyppokrates",GREEN, 0, 2, 0, 0),HYPATIA("hypatia",GREEN, 1, 0, 0, 1), ARCHIMEDES("archimedes",GREEN, 1, 0, 1, 0);//GREEN 
     
 
     private final String name;
@@ -22,9 +23,10 @@ public enum Inventor {
     private static final boolean BUSY = false;
     private final EnumMap<Skill, Integer> skills = new EnumMap<>(Skill.class);
     private final EnumMap<Skill, Integer> iniSkills = new EnumMap<>(Skill.class);
-
-    private Inventor(String name, int phy, int che, int mac, int mat) {
+    private final PlayerColor color;
+    private Inventor(String name, PlayerColor color, int phy, int che, int mac, int mat) {
         this.name = name;
+        this.color = color;
         state = FREE;
         skills.put(PHYSICS, phy);
         skills.put(CHEMISTRY, che);
@@ -80,5 +82,9 @@ public enum Inventor {
         for (int i = 0; i < num; i++)
             stars.append("★");
         return stars.toString();
+    }
+    
+    PlayerColor getColor() {
+        return this.color;
     }
 }

@@ -14,10 +14,12 @@ import java.util.Map.Entry;
 public class PlayerConsole {
     private List<Inventor> inventors;
     private Table table = Table.getInstance();
-    private int score = 0;
     PlayerColor color;
     private boolean canDoSth = true;
     private EnumMap<Ticket, Integer> tickets = new EnumMap<>(Ticket.class);
+    private boolean finishSth = false;
+    private int addPoint = 0;
+    private Invention ifinish = null;
 
     PlayerConsole(PlayerColor color) {
         for (Ticket t : Ticket.values())
@@ -58,6 +60,11 @@ public class PlayerConsole {
                 return false;
             inventor.setBusy();
             canDoSth = false;
+            if (invention.isFinished()) {
+                finishSth = true;
+                addPoint++;
+                ifinish = invention;
+            }
             return true;
         } else
             return false;
@@ -94,14 +101,6 @@ public class PlayerConsole {
         return libres;
     }
 
-    void addPoint() {
-        score++;
-    }
-
-    int getScore() {
-        return score;
-    }
-
     StringBuilder printHand() {
         StringBuilder hand = new StringBuilder();
         hand.append("\nHand " + color + ":");
@@ -128,30 +127,75 @@ public class PlayerConsole {
         canDoSth = true;
     }
 
+    /**
+     * @param ticket
+     * @return true if use the ticket successfully(exist)
+     */
     boolean useTicket(Ticket ticket) {
         if (tickets.get(ticket) <= 0)
             return false;
         switch (ticket) {
         case ADDONEPOINT:
-            this.addPoint();
+            this.addPoint++;
             break;
         case SETALLFREE:
             this.setAllFree();
             break;
         }
-        tickets.put(ticket, tickets.get(ticket) - 1);
+        tickets.replace(ticket, tickets.get(ticket) - 1);
         return true;
     }
 
-    void addTicket(Ticket ticket) {
-        tickets.put(ticket, tickets.get(ticket) + 1);
+    /**
+     * @param ticket
+     *            Add a ticket to console
+     */
+    void pickTicket(Invention invention, Ticket ticket) {
+        if (invention.removeTicket(ticket))
+            tickets.replace(ticket, tickets.get(ticket) + 1);
+        else
+            throw new IllegalStateException("Don't have such Ticket");
     }
 
-    List<Ticket> hasTicket() {
+    /**
+     * @return All the tickets in console
+     */
+    List<Ticket> getTicket() {
         List<Ticket> hasTicket = new ArrayList<>();
         for (Entry<Ticket, Integer> t : tickets.entrySet())
             for (int i = 0; i < t.getValue(); i++)
                 hasTicket.add(t.getKey());
         return hasTicket;
+    }
+
+    /**
+     * @return what i have just finished
+     */
+    Invention getiFinish() {
+        Invention inv;
+        if (finishSth) {
+            inv = ifinish;
+            finishSth = false;
+            return inv;
+        }
+        throw new IllegalStateException("Nothing Finished");
+    }
+
+    /**
+     * @return get the number of point should be added
+     */
+    int getAddPoint() {
+        int point = addPoint;
+        addPoint = 0;
+        return point;
+    }
+
+    /**
+     * @return
+     */
+    boolean finishSth() {
+        boolean fs = finishSth;
+        finishSth = false;
+        return fs;
     }
 }

@@ -6,10 +6,12 @@ package cpa.inventeur;
  */
 public interface Robot {
     void toPlay();
-
-    int getScore();
     
     void closeLogger();
 
     PlayerColor getColor();
+    
+    PlayerConsole getConsole();
+    
+    void chooseTicket(Invention inv);
 }

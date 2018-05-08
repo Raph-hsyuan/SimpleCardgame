@@ -46,15 +46,10 @@ public class RobotSimple implements Robot {
             if (!st)
                 setAllFree();
             else if (mark.isFinished()) {
-                addPoint();
+                iFinish(mark);
             }
         }
 
-    }
-
-    @Override
-    public int getScore() {
-        return console.getScore();
     }
 
     @Override
@@ -72,9 +67,10 @@ public class RobotSimple implements Robot {
         return false;
     }
 
-    private void addPoint() {
-        console.addPoint();
-        LOG.log(INFO, "#{0} gets one point!!\n\n", this);
+    private void iFinish(Invention in) {
+        StringBuilder fi = new StringBuilder();
+        fi.append(this + " finishs " + in);
+        LOG.log(INFO, "\ngetPoint :{0}\n",fi);
     }
 
     private void setAllFree() {
@@ -90,6 +86,17 @@ public class RobotSimple implements Robot {
     @Override
     public PlayerColor getColor() {
         return console.color;
+    }
+    
+    @Override
+    public PlayerConsole getConsole() {
+        return console;
+    }
+
+    @Override
+    public void chooseTicket(Invention inv) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

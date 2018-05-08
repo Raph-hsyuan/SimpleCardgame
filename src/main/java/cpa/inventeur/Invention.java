@@ -34,7 +34,8 @@ public enum Invention {
     private boolean state;
     private final EnumMap<Skill, Integer> demande = new EnumMap<>(Skill.class);
     private final EnumMap<Skill, Integer> iniDemande = new EnumMap<>(Skill.class);
-    List<Inventor> inventors = new ArrayList<>();
+    private List<Ticket> tickets = new ArrayList<>();
+    EnumMap<PlayerColor,Integer> inventors = new EnumMap<>(PlayerColor.class);
 
     Invention(String name, int phy, int che, int mac, int mat) {
         this.name = name;
@@ -49,6 +50,7 @@ public enum Invention {
     boolean addInventor(Inventor inventor) {
         boolean flag = FAILED;
         boolean st = FINISHED;
+        int mark = countDemands();
         for (EnumMap.Entry<Skill, Integer> entry : demande.entrySet()) {
             Skill key = entry.getKey();
             int needs = entry.getValue();
@@ -60,8 +62,14 @@ public enum Invention {
             if (entry.getValue() > 0)
                 st = INPROGRESS;
         }
-        if (flag)
-            inventors.add(inventor);
+        if (flag) {
+            int contribute = mark-countDemands();
+            PlayerColor color = inventor.getColor();
+            if(!inventors.containsKey(color))
+                inventors.put(color,contribute);
+            else
+                inventors.replace(color,inventors.get(color) + contribute);
+        }
         this.state = st;
         return flag;
     }
@@ -88,6 +96,9 @@ public enum Invention {
         for (Skill skill : demande.keySet()) {
             invention.append("\t|-" + skill + toStars(skill) + "\n");
         }
+        for (Ticket tic : tickets) {
+            invention.append("\t["+tic+"]\n");
+        }
         return invention.toString();
     }
 
@@ -109,6 +120,7 @@ public enum Invention {
         demande.putAll(iniDemande);
         state = INPROGRESS;
         inventors.clear();
+        tickets.clear();
     }
 
     String toStars(Skill skill) {
@@ -124,5 +136,27 @@ public enum Invention {
             num--;
         }
         return stars.toString();
+    }
+    
+    void addTicket(Ticket ticket) {
+        tickets.add(ticket);
+    }
+    
+    boolean removeTicket(Ticket ticket) {
+        return tickets.remove(ticket);
+    }
+    
+    List<Ticket> getTicket() {
+        List<Ticket> hasTicket = new ArrayList<>();
+        hasTicket.addAll(tickets);
+        return hasTicket;
+    }
+    
+    private int countDemands() {
+        return demande.values().stream().reduce(0,(total,count)->total+count);
+    }
+    
+    int getContribute(PlayerColor color) {
+        return inventors.get(color);
     }
 }

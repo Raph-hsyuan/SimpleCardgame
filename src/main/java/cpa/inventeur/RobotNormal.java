@@ -59,7 +59,7 @@ public class RobotNormal implements Robot {
                 send(bestInventor, bestInvention); // send an inventor
             }
             if (bestInvention.isFinished()) { // if the invention is finished
-                addPoint();
+                iFinish(bestInvention);
             }
         }
     }
@@ -71,20 +71,17 @@ public class RobotNormal implements Robot {
         LOG.log(INFO, "\nRobotInfo:\n{0}\n\n", done);
     }
 
-    private void addPoint() {
-        console.addPoint();
-        LOG.log(INFO, "#{0} gets one point!!\n\n", this);
+    private void iFinish(Invention in) {
+        StringBuilder fi = new StringBuilder();
+        fi.append(this + " finishs " + in);
+        LOG.log(INFO, "\ngetPoint :{0}\n",fi);
     }
-
+    
     private void setAllFree() {
         console.setAllFree();
         LOG.log(INFO, "#{0} set All Free\n\n", this);
     }
 
-    @Override
-    public int getScore() {
-        return console.getScore();
-    }
 
     @Override
     public String toString() {
@@ -114,5 +111,16 @@ public class RobotNormal implements Robot {
     @Override
     public PlayerColor getColor() {
         return console.color;
+    }
+    
+    @Override
+    public PlayerConsole getConsole() {
+        return console;
+    }
+
+    @Override
+    public void chooseTicket(Invention inv) {
+        // TODO Auto-generated method stub
+        
     }
 }
