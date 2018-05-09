@@ -147,36 +147,36 @@ public class GameEngine {
                 robot.toPlay();
             else
                 break;
-            int add =  console.getAddPoint();
-            updateScore(color,add);
-            if(console.finishSth())
+            int add = console.getAddPoint();
+            if (console.finishSth())
                 chooseTicket(console.getiFinish());
+            updateScore(color, add);
         }
     }
 
     private void chooseTicket(Invention inv) {
-        int numOfTicket = inv.getTicket().size();
         List<PlayerColor> rank = new ArrayList<>();
-        for(PlayerColor co : inv.inventors.keySet())
+        for (PlayerColor co : inv.contributer.keySet())
             rank.add(co);
-        for(int i = 0; i<rank.size()-1; i++) 
-            for(int j = 0; j<rank.size()-1-i; j++) {
-                if(inv.getContribute(rank.get(j))<inv.getContribute(rank.get(j+1)))
-                    Collections.swap(rank, j, j+1);
+        for (int i = 0; i < rank.size() - 1; i++)
+            for (int j = 0; j < rank.size() - 1 - i; j++) {
+                if (inv.getContribute(rank.get(j)) < inv.getContribute(rank.get(j + 1)))
+                    Collections.swap(rank, j, j + 1);
             }
-        for(PlayerColor co : rank)
-            if(numOfTicket>0)
+        for (PlayerColor co : rank) {
+            if (!inv.getTicket().isEmpty())
                 getRobot(co).chooseTicket(inv);
             else
                 break;
-            
+        }
+
     }
-    
+
     private void updateScore(PlayerColor color, int add) {
         int score = scoreBoard.get(color);
-        scoreBoard.replace(color, score+add);
+        scoreBoard.replace(color, score + add);
     }
-    
+
     void initialGame() {
         gameTable.initialInventions();
         for (Inventor inventor : Inventor.values())

@@ -14,4 +14,6 @@ public interface Robot {
     PlayerConsole getConsole();
     
     void chooseTicket(Invention inv);
+    
+    boolean useTicket(Ticket tik);
 }

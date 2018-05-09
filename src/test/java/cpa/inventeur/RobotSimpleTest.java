@@ -2,22 +2,25 @@ package cpa.inventeur;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+import static java.util.logging.Level.*;
 
 import static cpa.inventeur.Invention.*;
 import static cpa.inventeur.PlayerColor.*;
+import static cpa.inventeur.Ticket.*;
 
 class RobotSimpleTest {
     Table table = Table.getInstance();
     RobotSimple robot;
     List<Inventor> inventors = new ArrayList<>();
-
+    private static final Logger LOG = Logger.getLogger("RobotInfo");
     @BeforeEach
     void initial() {
+        LOG.setLevel(OFF);
         table.removeAll();
         table.putInvention(CAR);
         table.putInvention(PLANE);
@@ -56,13 +59,47 @@ class RobotSimpleTest {
         console.setNewTurn();
         robot.toPlay();
         table.removeFinished();
-        assertTrue(!console.getLibres().isEmpty());
+        assertFalse(console.getLibres().isEmpty());
         assertEquals(4,table.getInventions().size());
         assertEquals(4,console.getLibres().size());
     }
     
-//    @AfterEach
-//    void testGetScore() {
-//        assertEquals(0,robot.getScore());
-//    }
+    @Test
+    void testGetColor() {
+        PlayerConsole console = new PlayerConsole(RED);
+        console.initialInventors();
+        robot = new RobotSimple("TESTER1",console);
+        assertEquals(RED,robot.getColor());
+    }
+    
+    @Test
+    void testGetConsole() {
+        PlayerConsole console = new PlayerConsole(GREEN);
+        console.initialInventors();
+        robot = new RobotSimple("TESTER1",console);
+        assertEquals(console,robot.getConsole());
+    }
+    
+    @Test
+    void testChooseTicket() {
+        PlayerConsole console = new PlayerConsole(GREEN);
+        console.initialInventors();
+        robot = new RobotSimple("TESTER1",console);
+        CAR.addTicket(ADDONEPOINT);
+        CAR.addTicket(SETALLFREE);
+        robot.chooseTicket(CAR);
+        assertEquals(1,CAR.getTicket().size());
+        robot.chooseTicket(CAR);
+        assertEquals(0,CAR.getTicket().size());
+    }
+
+    @Test
+    void testUseTicket() {
+        PlayerConsole console = new PlayerConsole(GREEN);
+        console.initialInventors();
+        robot = new RobotSimple("TESTER1",console);
+        CAR.addTicket(SETALLFREE);
+        robot.chooseTicket(CAR);
+        assertTrue(robot.useTicket(SETALLFREE));
+    }
 }

@@ -4,9 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
 import static cpa.inventeur.Inventor.*;
 import static cpa.inventeur.Invention.*;
 import static cpa.inventeur.PlayerColor.*;
@@ -42,8 +43,8 @@ class PlayerConsoleTest {
     void testSend() {
         CAR.initial();
         consoleR.send(EDISON, CAR);
-        assertTrue(!CAR.isFinished());
-        assertTrue(!EDISON.isFree());        
+        assertFalse(CAR.isFinished());
+        assertFalse(EDISON.isFree());        
         boolean result1 = consoleR.send(EDISON, CAR);
         consoleR.setNewTurn();   
         EDISON.setFree();
@@ -84,7 +85,8 @@ class PlayerConsoleTest {
         EINSTEIN.setBusy();
         EDISON.setBusy();
         consoleR.setAllFree();
-        assertEquals(true,EINSTEIN.isFree()&&EDISON.isFree());
+        assertEquals(true,EINSTEIN.isFree());
+        assertEquals(true,EDISON.isFree());
         assertEquals(false,consoleR.setAllFree());
         consoleR.setNewTurn();
     }
@@ -113,23 +115,32 @@ class PlayerConsoleTest {
         assertEquals(CURIE,consoleR.getLibres().get(0));
     }
 
-//    @Test
-//    void testAddPoint() {
-//        consoleR.addPoint();
-//        assertEquals(1,consoleR.getScore());
-//    }
+    @Test
+    void testAddPoint() {
+        CAR.addTicket(ADDONEPOINT);
+        assertEquals(0,consoleR.getAddPoint());
+        consoleR.pickTicket(CAR,ADDONEPOINT);
+        assertEquals(1,consoleR.getAddPoint());
+    }
     
+    /**
+     * Test ADDONEPOINT will be used ones it is picked
+     */
     @Test 
     void testPickTicket(){
         CAR.addTicket(ADDONEPOINT);
         CAR.addTicket(SETALLFREE);
-        consoleR.pickTicket(CAR,ADDONEPOINT);
-        assertTrue(consoleR.useTicket(ADDONEPOINT));
+        assertTrue(consoleR.pickTicket(CAR,ADDONEPOINT));
         assertFalse(consoleR.useTicket(ADDONEPOINT));
         consoleR.pickTicket(CAR,SETALLFREE);
         assertTrue(consoleR.useTicket(SETALLFREE));
+        assertFalse(consoleR.pickTicket(CAR,ADDONEPOINT));
+        
     }
     
+    /**
+     * Test ADDONEPOINT will be used ones it is picked
+     */
     @Test
     void testHasTicket() {
         CAR.addTicket(ADDONEPOINT);
@@ -138,14 +149,34 @@ class PlayerConsoleTest {
         consoleR.pickTicket(CAR,ADDONEPOINT);
         consoleR.pickTicket(CAR,ADDONEPOINT);
         consoleR.pickTicket(CAR,SETALLFREE);
-        assertTrue(consoleR.getTicket().contains(ADDONEPOINT));
-        assertTrue(consoleR.getTicket().contains(SETALLFREE));
-        assertTrue(consoleR.useTicket(ADDONEPOINT));
-        assertTrue(consoleR.getTicket().contains(ADDONEPOINT));
-        assertTrue(consoleR.useTicket(ADDONEPOINT));
-        assertFalse(consoleR.getTicket().contains(ADDONEPOINT));  
+        assertFalse(consoleR.getTicket().contains(ADDONEPOINT));
         assertTrue(consoleR.getTicket().contains(SETALLFREE)); 
-        
+    }
+    
+    @Test
+    void testFinishSth() {
+        consoleR.send(CURIE, CAR);
+        consoleR.setNewTurn();
+        consoleR.send(EINSTEIN, CAR);
+        consoleR.setNewTurn();
+        consoleR.send(EDISON, CAR);
+        consoleR.setNewTurn();
+        consoleR.send(TESLA, CAR);
+        assertTrue(consoleR.finishSth());
+    }
+    
+    @Test
+    void testGetIfinished() {
+        consoleR.send(CURIE, CAR);
+        consoleR.setNewTurn();
+        Executable exceptionTest = () -> consoleR.getiFinish();
+        assertThrows(IllegalStateException.class,exceptionTest,"Nothing Finished");
+        consoleR.send(EINSTEIN, CAR);
+        consoleR.setNewTurn();
+        consoleR.send(EDISON, CAR);
+        consoleR.setNewTurn();
+        consoleR.send(TESLA, CAR);
+        assertEquals(CAR,consoleR.getiFinish());
     }
 
 }

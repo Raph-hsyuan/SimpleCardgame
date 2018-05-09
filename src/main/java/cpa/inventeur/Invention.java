@@ -35,7 +35,7 @@ public enum Invention {
     private final EnumMap<Skill, Integer> demande = new EnumMap<>(Skill.class);
     private final EnumMap<Skill, Integer> iniDemande = new EnumMap<>(Skill.class);
     private List<Ticket> tickets = new ArrayList<>();
-    EnumMap<PlayerColor,Integer> inventors = new EnumMap<>(PlayerColor.class);
+    EnumMap<PlayerColor,Integer> contributer = new EnumMap<>(PlayerColor.class);
 
     Invention(String name, int phy, int che, int mac, int mat) {
         this.name = name;
@@ -65,10 +65,10 @@ public enum Invention {
         if (flag) {
             int contribute = mark-countDemands();
             PlayerColor color = inventor.getColor();
-            if(!inventors.containsKey(color))
-                inventors.put(color,contribute);
+            if(!contributer.containsKey(color))
+                contributer.put(color,contribute);
             else
-                inventors.replace(color,inventors.get(color) + contribute);
+                contributer.replace(color,contributer.get(color) + contribute);
         }
         this.state = st;
         return flag;
@@ -119,7 +119,7 @@ public enum Invention {
     void initial() {
         demande.putAll(iniDemande);
         state = INPROGRESS;
-        inventors.clear();
+        contributer.clear();
         tickets.clear();
     }
 
@@ -143,7 +143,13 @@ public enum Invention {
     }
     
     boolean removeTicket(Ticket ticket) {
-        return tickets.remove(ticket);
+        for(int i = 0 ; i<tickets.size();i++)
+            if(tickets.get(i).equals(ticket)) {
+                tickets.remove(i);
+                return true;
+            }
+        return false;
+                
     }
     
     List<Ticket> getTicket() {
@@ -157,6 +163,6 @@ public enum Invention {
     }
     
     int getContribute(PlayerColor color) {
-        return inventors.get(color);
+        return contributer.get(color);
     }
 }

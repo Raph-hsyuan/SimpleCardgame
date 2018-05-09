@@ -3,6 +3,7 @@ package cpa.inventeur;
 import java.util.List;
 import java.util.logging.Logger;
 import static java.util.logging.Level.*;
+import static cpa.inventeur.Ticket.*;
 
 /**
  * @author Liu Jiaqi
@@ -25,7 +26,8 @@ public class RobotNormal implements Robot {
         List<Inventor> libre;
         libre = console.getLibres();
         if (libre.isEmpty()) {
-            setAllFree();
+            if(!console.useTicket(SETALLFREE))
+                setAllFree();
         } else {
             int match = 0;
             int maxmatch = 0;
@@ -120,7 +122,19 @@ public class RobotNormal implements Robot {
 
     @Override
     public void chooseTicket(Invention inv) {
-        // TODO Auto-generated method stub
-        
+        if(!console.pickTicket(inv, ADDONEPOINT)) {
+            console.pickTicket(inv, SETALLFREE);
+            LOG.log(INFO, "#{0} chose SETALLFREE", this);
+        }else {
+            LOG.log(INFO, "#{0} chose ADDONRPOINT", this);
+        }
+    }
+
+    @Override
+    public boolean useTicket(Ticket tik) {
+        StringBuilder use = new StringBuilder();
+        use.append(this+" use "+tik);
+        LOG.log(INFO, "#{0}", use);
+        return console.useTicket(tik);
     }
 }

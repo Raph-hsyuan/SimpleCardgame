@@ -16,7 +16,7 @@ public class PlayerConsole {
     private Table table = Table.getInstance();
     PlayerColor color;
     private boolean canDoSth = true;
-    private EnumMap<Ticket, Integer> tickets = new EnumMap<>(Ticket.class);
+    EnumMap<Ticket, Integer> tickets = new EnumMap<>(Ticket.class);
     private boolean finishSth = false;
     private int addPoint = 0;
     private Invention ifinish = null;
@@ -150,11 +150,14 @@ public class PlayerConsole {
      * @param ticket
      *            Add a ticket to console
      */
-    void pickTicket(Invention invention, Ticket ticket) {
-        if (invention.removeTicket(ticket))
+    boolean pickTicket(Invention invention, Ticket ticket) {
+        if (invention.removeTicket(ticket)) {
             tickets.replace(ticket, tickets.get(ticket) + 1);
-        else
-            throw new IllegalStateException("Don't have such Ticket");
+            if (ticket.equals(Ticket.ADDONEPOINT))
+                useTicket(Ticket.ADDONEPOINT);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -194,8 +197,6 @@ public class PlayerConsole {
      * @return
      */
     boolean finishSth() {
-        boolean fs = finishSth;
-        finishSth = false;
-        return fs;
+        return finishSth;
     }
 }

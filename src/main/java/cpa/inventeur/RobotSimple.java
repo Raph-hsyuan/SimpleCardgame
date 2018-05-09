@@ -95,8 +95,23 @@ public class RobotSimple implements Robot {
 
     @Override
     public void chooseTicket(Invention inv) {
-        // TODO Auto-generated method stub
-        
+        int index = ran.nextInt(inv.getTicket().size());
+        Ticket ti = inv.getTicket().get(index);
+        while(!console.pickTicket(inv, ti)) {
+            index = ran.nextInt(Ticket.values().length);
+            ti = inv.getTicket().get(index);
+        }
+        StringBuilder choose = new StringBuilder();
+        choose.append(this+"chose"+ti);
+        LOG.log(INFO, "#{0}", choose);
+    }
+
+    @Override
+    public boolean useTicket(Ticket tik) {
+        StringBuilder use = new StringBuilder();
+        use.append(this+" use "+tik);
+        LOG.log(INFO, "#{0}", use);
+        return console.useTicket(tik);
     }
 
 }

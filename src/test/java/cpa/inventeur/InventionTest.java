@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import static cpa.inventeur.Inventor.*;
 import static cpa.inventeur.Invention.*;
+import static cpa.inventeur.Ticket.*;
 import org.junit.jupiter.api.Test;
 
 class InventionTest {
@@ -36,14 +37,14 @@ class InventionTest {
         boolean resultSSSS = CAR.addInventor(HYPATIA);
         boolean resultSSSSS = CAR.addInventor(BOWLE);
         boolean resultF = CAR.addInventor(HYPPOKRATES);
-        int expectSize = 5;
+        int expectSize = 4;
         assertEquals(SUCCESS, resultS);
         assertEquals(SUCCESS, resultSS);
         assertEquals(SUCCESS, resultSSS);
         assertEquals(SUCCESS, resultSSSS);
         assertEquals(SUCCESS, resultSSSSS);
         assertEquals(FAILED, resultF);
-        assertEquals(expectSize, CAR.inventors.size());
+        assertEquals(expectSize, CAR.contributer.size());
     }
 
     /**
@@ -88,5 +89,21 @@ class InventionTest {
     void testSetFinished() {
         CAR.setFinished();
         assertEquals(true,CAR.isFinished());
+    }
+    
+    @Test
+    void testGetTicket() {
+        CAR.addTicket(ADDONEPOINT);
+        CAR.addTicket(SETALLFREE);
+        assertEquals(ADDONEPOINT,CAR.getTicket().get(0));
+        assertEquals(SETALLFREE,CAR.getTicket().get(1));
+    }
+    
+    @Test
+    void testGetContribute() {
+        CAR.addInventor(CURIE);
+        assertEquals(2,CAR.getContribute(PlayerColor.RED));
+        CAR.addInventor(TESLA);
+        assertEquals(4,CAR.getContribute(PlayerColor.RED));
     }
 }

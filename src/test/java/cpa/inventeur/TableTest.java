@@ -43,7 +43,7 @@ class TableTest {
         assertTrue(table.putInvention(invention4));
         assertTrue(table.putInvention(invention4));
         assertTrue(table.putInvention(invention4));
-        assertTrue(!table.putInvention(invention4));
+        assertFalse(table.putInvention(invention4));
         assertEquals(8,table.getInventions().size());
         assertEquals(invention1,table.getInventions().get(0));
         assertEquals(invention2,table.getInventions().get(1));
