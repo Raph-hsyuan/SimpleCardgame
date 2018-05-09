@@ -76,7 +76,10 @@ public class GameEngine {
      */
     void printFinish() {
         LOG.log(INFO, "\n***************\n*GAME FINISHED*\n***************\n{0}", getScore());
-        LOG.log(INFO, "\n{0} is Winner!!", getWinner());
+        StringBuilder winner = new StringBuilder();
+        for(PlayerColor color : getWinner())
+            winner.append(" "+getRobot(color));
+        LOG.log(INFO, "\n{0} is Winner!!", winner);
     }
 
     /**
