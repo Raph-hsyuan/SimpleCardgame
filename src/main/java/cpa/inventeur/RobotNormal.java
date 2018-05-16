@@ -66,7 +66,7 @@ public class RobotNormal implements Robot {
         }
     }
 
-    private void send(Inventor inventor, Invention invention) {
+    void send(Inventor inventor, Invention invention) {
         console.send(inventor, invention);
         StringBuilder done = new StringBuilder();
         done.append("# " + this + " sends " + inventor + "---->" + invention);

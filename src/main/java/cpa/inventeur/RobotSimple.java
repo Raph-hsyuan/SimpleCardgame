@@ -57,7 +57,7 @@ public class RobotSimple implements Robot {
         return name;
     }
 
-    private boolean send(Inventor inventor, Invention invention) {
+    boolean send(Inventor inventor, Invention invention) {
         if(console.send(inventor, invention)) {
             StringBuilder done = new StringBuilder();
             done.append("# " + this + " sends " + inventor + "---->" + invention);

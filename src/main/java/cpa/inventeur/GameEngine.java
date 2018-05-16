@@ -74,7 +74,7 @@ public class GameEngine {
     /**
      * Print GameOver
      */
-    void printFinish() {
+    private void printFinish() {
         LOG.log(INFO, "\n***************\n*GAME FINISHED*\n***************\n{0}", getScore());
         StringBuilder winner = new StringBuilder();
         for(PlayerColor color : getWinner())
@@ -85,7 +85,7 @@ public class GameEngine {
     /**
      * Print the final result
      */
-    StringBuilder getScore() {
+    private StringBuilder getScore() {
         StringBuilder score = new StringBuilder();
         score.append("|PLAYER\t|SCORE\n");
         for (Robot p : players)
@@ -103,7 +103,7 @@ public class GameEngine {
         for (Invention find : Invention.values())
             if (find.ordinal() > 4)
                 inv.add(find);
-        while (num > 0) {
+        while (num > 1) {
             int mark = ran.nextInt(num);
             gameTable.putInvention(inv.get(mark));
             inv.remove(mark);
@@ -114,15 +114,15 @@ public class GameEngine {
     /**
      * @return true if game is not finished
      */
-    boolean notFinished() {
+    private boolean notFinished() {
         return !gameTable.getNotFinished().isEmpty();
     }
 
-    void removeFinished() {
+    private void removeFinished() {
         gameTable.removeFinished();
     }
 
-    void printRoundStart(int round) {
+    private void printRoundStart(int round) {
         StringBuilder start = new StringBuilder();
         start.append("Round " + round + " :");
         for (PlayerConsole console : consoles)
@@ -131,7 +131,7 @@ public class GameEngine {
         LOG.log(INFO, "\nA new Round Start\n{0}", start);
     }
 
-    void printRoundFinish(int round) {
+    private void printRoundFinish(int round) {
         StringBuilder finish = new StringBuilder();
         finish.append("Round " + round + " End");
         for (PlayerConsole console : consoles)
@@ -142,7 +142,7 @@ public class GameEngine {
         LOG.log(INFO, "\nA Round Finish\n{0}", finish);
     }
 
-    void playerAction() {
+    private void playerAction() {
         for (Robot robot : players) {
             PlayerColor color = robot.getColor();
             PlayerConsole console = robot.getConsole();
@@ -157,7 +157,7 @@ public class GameEngine {
         }
     }
 
-    private void chooseTicket(Invention inv) {
+    void chooseTicket(Invention inv) {
         List<PlayerColor> rank = new ArrayList<>();
         for (PlayerColor co : inv.contributer.keySet())
             rank.add(co);
@@ -175,7 +175,7 @@ public class GameEngine {
 
     }
 
-    private void updateScore(PlayerColor color, int add) {
+    void updateScore(PlayerColor color, int add) {
         int score = scoreBoard.get(color);
         scoreBoard.replace(color, score + add);
     }
@@ -201,12 +201,12 @@ public class GameEngine {
         return winner;
     }
 
-    private void setNewTurn() {
+    void setNewTurn() {
         for (PlayerConsole console : consoles)
             console.setNewTurn();
     }
 
-    private void addTickets() {
+    void addTickets() {
         Random ran = new Random();
         for (Invention inv : gameTable.getInventions()) {
             for (Ticket tic : Ticket.values())
