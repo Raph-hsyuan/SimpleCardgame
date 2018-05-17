@@ -104,6 +104,9 @@ class InventionTest {
         CAR.addInventor(CURIE);
         assertEquals(2,CAR.getContribute(PlayerColor.RED));
         CAR.addInventor(TESLA);
+        CAR.addInventor(GUIENBERG);
+        CAR.addInventor(ORESME);
         assertEquals(4,CAR.getContribute(PlayerColor.RED));
+        assertEquals(2,CAR.getContribute(PlayerColor.BLUE));
     }
 }
