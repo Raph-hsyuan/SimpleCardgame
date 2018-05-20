@@ -26,7 +26,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>cpa.inventeur.Main</mainClass> <!-- use <mainClass>cpa.inventeur.Statistics</mainClass> to calculate Winning rate-->
+                    <mainClass>cpa.inventeur.launcher.Main</mainClass> 
+                    <!-- use <mainClass>cpa.inventeur.launcher.Statistics</mainClass> to calculate Winning rate-->
                 </configuration>
             </plugin>
             
