@@ -130,41 +130,41 @@ class RobotNormalTest {
         assertEquals(CURIE,robot.bestInventor);
     }
     
-//    @Test
-//    void testToPlay() {
-//        PlayerConsole console = new PlayerConsole(RED);
-//        console.initialInventors();
-//        robot = new RobotNormal("TESTER1", console);
-//        robot.closeLogger();
-//        console.setNewTurn();
-//        console.setAllFree();
-//        console.setNewTurn();
-//        robot.toPlay();
-//        table.removeFinished();
-//        assertEquals(4, table.getInventions().size());
-//        assertEquals(3, console.getLibres().size());
-//        console.setNewTurn();
-//        robot.toPlay();
-//        table.removeFinished();
-//        assertEquals(4, table.getInventions().size());
-//        assertEquals(2, console.getLibres().size());
-//        console.setNewTurn();
-//        robot.toPlay();
-//        table.removeFinished();
-//        assertEquals(4, table.getInventions().size());
-//        assertEquals(1, console.getLibres().size());
-//        console.setNewTurn();
-//        robot.toPlay();
-//        table.removeFinished();
-//        assertEquals(3, table.getInventions().size());
-//        assertEquals(0, console.getLibres().size());
-//        console.setNewTurn();
-//        robot.toPlay();
-//        table.removeFinished();
-//        assertFalse(console.getLibres().isEmpty()); 
-//        assertEquals(3, table.getInventions().size());
-//        assertEquals(4, console.getLibres().size());
-//    }
+   @Test
+   void testToPlay() {
+       PlayerConsole console = new PlayerConsole(RED);
+       console.initialInventors();
+       robot = new RobotNormal("TESTER1", console);
+       robot.closeLogger();
+       console.setNewTurn();
+       console.setAllFree();
+       console.setNewTurn();
+       robot.toPlay();
+       table.removeFinished();
+       assertEquals(4, table.getInventions().size());
+       assertEquals(3, console.getLibres().size());
+       console.setNewTurn();
+       robot.toPlay();
+       table.removeFinished();
+       assertEquals(4, table.getInventions().size());
+       assertEquals(2, console.getLibres().size());
+       console.setNewTurn();
+       robot.toPlay();
+       table.removeFinished();
+       assertEquals(4, table.getInventions().size());
+       assertEquals(1, console.getLibres().size());
+       console.setNewTurn();
+       robot.toPlay();
+       table.removeFinished();
+       assertEquals(3, table.getInventions().size());
+       assertEquals(0, console.getLibres().size());
+       console.setNewTurn();
+       robot.toPlay();
+       table.removeFinished();
+       assertFalse(console.getLibres().isEmpty()); 
+       assertEquals(3, table.getInventions().size());
+       assertEquals(4, console.getLibres().size());
+   }
     
     @Test
     void testGetColor() {
