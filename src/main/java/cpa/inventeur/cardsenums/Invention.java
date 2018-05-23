@@ -8,6 +8,7 @@ import static cpa.inventeur.cardsenums.Skill.PHYSICS;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Wu Kejia
@@ -166,7 +167,7 @@ public enum Invention {
         return contributer.get(color);
     }
     
-    public EnumMap<PlayerColor,Integer> getContributers(){
+    public Map<PlayerColor,Integer> getContributers(){
         EnumMap<PlayerColor,Integer> find = new EnumMap<>(PlayerColor.class);
         find.putAll(contributer);
         return find;

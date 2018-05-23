@@ -82,9 +82,8 @@ public class RobotNormal extends Robot {
         for (Invention invention : table.getNotFinished())
             for (Inventor inventor : console.getLibres())
                 if (toFinish(inventor, invention)) {
-                    send(inventor, invention);
                     bestInvention = invention;
-                    return true;
+                    return send(inventor, invention);
                 }
         return false;
     }
