@@ -33,7 +33,7 @@ public class GameEngine {
     private List<Robot> players = new ArrayList<>();
     private List<PlayerConsole> consoles = new ArrayList<>();
     private Map<PlayerColor, Integer> scoreBoard = new EnumMap<>(PlayerColor.class);
-
+    private int round = 1;
     public GameEngine(Map<String, Level> build) {
         if (build.size() > 5)
             throw new IllegalStateException("Max 5 players");
@@ -68,11 +68,11 @@ public class GameEngine {
     public void gameStart() {
         putInventions();
         addTickets();
-        int round = 1;
+        round = 1;
         while (notFinished()) {
-            printRoundStart(round);
+            printRoundStart();
             playerAction();
-            printRoundFinish(round);
+            printRoundFinish();
             removeFinished();
             round++;
             setNewTurn();
@@ -90,6 +90,7 @@ public class GameEngine {
         for(PlayerColor color : getWinner())
             winner.append(" "+getRobot(color));
         LOG.log(INFO, "\n{0} is Winner!!", winner);
+        LOG.log(INFO, "\nGame finishs successfully after {0} round\n 0 invention remains", round);
     }
 
     /**
@@ -97,7 +98,7 @@ public class GameEngine {
      */
     private StringBuilder getScore() {
         StringBuilder score = new StringBuilder();
-        score.append("|PLAYER\t|SCORE\n");
+        score.append("|PLAYER Name\t|Color\t|SCORE\n");
         for (Robot p : players)
             score.append("\n|" + p + "\t|" + p.getColor() + "\t|" + scoreBoard.get(p.getColor()));
         return score;
@@ -132,7 +133,7 @@ public class GameEngine {
         gameTable.removeFinished();
     }
 
-    private void printRoundStart(int round) {
+    private void printRoundStart() {
         StringBuilder start = new StringBuilder();
         start.append("Round " + round + " :");
         for (PlayerConsole console : consoles)
@@ -141,7 +142,7 @@ public class GameEngine {
         LOG.log(INFO, "\nA new Round Start\n{0}", start);
     }
 
-    private void printRoundFinish(int round) {
+    private void printRoundFinish() {
         StringBuilder finish = new StringBuilder();
         finish.append("Round " + round + " End");
         for (PlayerConsole console : consoles)

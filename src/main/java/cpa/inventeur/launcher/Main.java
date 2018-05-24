@@ -15,11 +15,11 @@ public class Main {
 
     public static void main(String[] args) {
         Map<String, Level> builder = new HashMap<>();
-        builder.put("huang", SIMPLE);
-        builder.put("wu", SIMPLE);
-        builder.put("liu", SIMPLE);
-        builder.put("yu", SIMPLE);
-        builder.put("super", NORMAL);
+        builder.put("RobotSimple1", SIMPLE);
+        builder.put("RobotSimple2", SIMPLE);
+        builder.put("RobotSimple3", SIMPLE);
+        builder.put("RobotSimple4", SIMPLE);
+        builder.put("RobotNormal0", NORMAL);
         GameEngine mygame = new GameEngine(builder);
         mygame.gameStart();
     }
