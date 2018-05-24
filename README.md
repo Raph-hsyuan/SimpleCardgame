@@ -33,7 +33,7 @@
 ## DEMO du Jeu:
 > 
 	<mainClass>cpa.inventeur.Main</mainClass> 
-###Round Start 
+### Round Start 
 >
 - Print round number
 - Print hands Before Round
@@ -51,7 +51,7 @@
 - Print Score Board
 	- ![](https://i.imgur.com/qHvRWyl.png)
 - Start Another Round until no Invention Remain
-####  Game Finish 
+#### Game Finish 
 > 
 - Print Game Finish
 - Print Score Board
@@ -67,7 +67,7 @@
 - ![](https://i.imgur.com/KcXV8GW.png)
 - ![](https://i.imgur.com/AH5EtP3.png)
 
-##Statistic Du Jeu
+## Statistic Du Jeu
 > 
     <mainClass>cpa.inventeur.Statistics</mainClass>
 -  Faire statistique de taux de victoires
@@ -77,16 +77,16 @@
 	-  Un RobotNormal vs Quatre RobotSimple
 - ![](https://i.imgur.com/APFcuV0.png)
 ## Class Principaux: 
-- ###***Table.class :***
+- ### ***Table.class :***
 	- Présenter les inventions valide dans le jeu
 	- Présenter les opération valides d’inventions  
-- ###***PlayerConsole.class :***
+- ### ***PlayerConsole.class :***
 	- Comme l’interface entre Joueur et Jeu.
 	- Présente tous les actions valides.
 	- Limiter le nombre d’opération de joueur dans un round.
 	- Détecter les événements comme Ajouter Point ou Finir qqch et les annoncent à GameEngine. 
 	- Avoir une liste d’inventeurs qui est initialisé selon le PlayerColor, des inventeurs de certain PlayerColor sont fixes.
-- ###***GameEngine.class :***
+- ### ***GameEngine.class :***
 	- Créer les PlayerConsole de couleur diffèrent d’après le nombre de joueur.
 	- Ajouter les inventions random à la Table d’après le nombre de joueur.
 	- Ajouter les Tickets (Bonus) random aux inventions.
@@ -96,28 +96,28 @@
 	- Régler l’ordre de round et jeu.
 
 ## Détail Du Jeu: 
-- ###**Joueur :** 
+- ### **Joueur :** 
 	- 1 à 5 (cinq couleurs maximal)
-- ###**Invention :** 
+- ### **Invention :** 
 	- 12 (1er époque)
-- ###**Inventeur :** 
+- ### **Inventeur :** 
 	- 4*5=20 (quatre inventeurs pour un couleur)**
-- ###**Compétence :** 
+- ### **Compétence :** 
 	- 4 (Skill)
-- ###**Ticket (Bonus):** 
+- ### **Ticket (Bonus):** 
 	- ADD A POINT
 	- SET ALL FREE
-- ###**Robot: 2 types:** 
+- ### **Robot: 2 types:** 
 	- Simple
 	- Normal 
-- ###**Ordre de Distribution de Bonus :** 
+- ### **Ordre de Distribution de Bonus :** 
 	- Selon le taille de la contribution de chaque contribuant. (Ordre décroissant)**
-- ###**Fin de jeu :** ###
+- ### **Fin de jeu :** ###
 	- Aucune invention dans la Table.
-- ###**Gagner le point :** 
+- ### **Gagner le point :** 
 	- Finir une invention +1
 	- Use Ticket ADD ONE POINT +1
-- ###**Gagner le jeu :** 
+- ### **Gagner le jeu :** 
 	- Avoir le meilleur score
 
 
